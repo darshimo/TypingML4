@@ -43,10 +43,8 @@ void writeRuleName(Cncl *cncl_ob){
     return;
 }
 
-/*
-Val *getVal(Env *eps, Var *x){
+Type *getType(Env *eps, Var *x){
     if(eps==NULL)error("var is not found.");
-    if(cmpVar(eps->var_,x)==0)return eps->val_;
-    return getVal(eps->prev,x);
+    if(cmpVar(eps->var_,x)==0)return eps->type_;
+    return getType(eps->prev,x);
 }
-*/

@@ -43,7 +43,7 @@ typedef enum{ // infr type
     MINUS,
     TIMES,
     LT
-}InfrOpType;
+}OpType;
 
 
 struct Funt_;
@@ -109,7 +109,7 @@ typedef struct Var_{
 }Var;
 
 typedef struct Op_{
-    InfrOpType op_type;
+    OpType op_type;
     struct Exp_ *exp1_;
     struct Exp_ *exp2_;
 }Op;

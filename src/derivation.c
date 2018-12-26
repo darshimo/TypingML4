@@ -228,7 +228,7 @@ void E_Op(Cncl *cncl_ob, int d){
     asmp_ob->next->next->cncl_->cncl_type = INFR;
     asmp_ob->next->next->cncl_->u.infr_ = (Infr *)malloc(sizeof(Infr));
 
-    InfrOpType tmp = cncl_ob->u.eval_->exp_->u.op_->op_type;
+    OpType tmp = cncl_ob->u.eval_->exp_->u.op_->op_type;
     if(tmp == PLUS){
         cncl_ob->rule_type = E_PLUS;
         asmp_ob->next->next->cncl_->u.infr_->infr_type = PLUS;
@@ -603,7 +603,7 @@ void E_Match(Cncl *cncl_ob, int d){
 
 void derivation(Cncl *cncl_ob, int d){
     if(cncl_ob->cncl_type == INFR){
-        InfrOpType tmp = cncl_ob->u.infr_->infr_type;
+        OpType tmp = cncl_ob->u.infr_->infr_type;
         if(tmp==PLUS) B_Plus(cncl_ob,d);
         else if(tmp==MINUS) B_Minus(cncl_ob,d);
         else if(tmp==TIMES) B_Times(cncl_ob,d);
