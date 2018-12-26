@@ -7,6 +7,7 @@
 #include <stdio.h>
 #endif
 
+/*
 Int *copyInt(Int *);
 Bool *copyBool(Bool *);
 Clsr *copyClsr(Clsr *);
@@ -226,3 +227,4 @@ Exp *copyExp(Exp *sample){
     else if(ob->exp_type==MATCH)ob->u.match_ = copyMatch(sample->u.match_);
     return ob;
 }
+*/

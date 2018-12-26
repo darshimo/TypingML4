@@ -1,41 +1,27 @@
 typedef enum{//rule type
-    E_INT,
-    E_BOOL,
-    E_IFT,
-    E_IFF,
-    E_PLUS,
-    E_MINUS,
-    E_TIMES,
-    E_LT,
-    E_VAR,
-    E_LET,
-    E_FUN,
-    E_APP,
-    E_LETREC,
-    E_APPREC,
-    B_PLUS,
-    B_MINUS,
-    B_TIMES,
-    B_LT,
-    E_NIL,
-    E_CONS,
-    E_MATCHNIL,
-    E_MATCHCONS
+    T_INT,
+    T_BOOL,
+    T_IF,
+    T_PLUS,
+    T_MINUS,
+    T_TIMES,
+    T_LT,
+    T_VAR,
+    T_LET,
+    T_FUN,
+    T_APP,
+    T_LETREC,
+    T_NIL,
+    T_CONS,
+    T_MATCT
 }RuleType;
 
-typedef enum{ //cncl type
-    INFR,
-    EVAL
-}CnclType;
-
-typedef enum{ //val type
-    INT_,
-    BOOL_,
-    CLSR,
-    CLSRREC,
-    NIL_,
-    CONS_
-}ValType;
+typedef enum{ //type type
+    INTT,
+    BOOLT,
+    FUNT,
+    LISTT
+}TypeType;
 
 typedef enum{ // exp type
     INT,
@@ -49,8 +35,7 @@ typedef enum{ // exp type
     LETREC,
     NIL,
     CONS,
-    MATCH,
-
+    MATCH
 }ExpType;
 
 typedef enum{ // infr type
@@ -61,15 +46,15 @@ typedef enum{ // infr type
 }InfrOpType;
 
 
-struct Int_;
-struct Bool_;
-struct Clsr_;
-struct ClsrRec_;
-struct Consv_;
+struct Funt_;
+struct Listt_;
 
 struct Env_;
 
-struct Val_;
+struct Type_;
+
+struct Int_;
+struct Bool_;
 struct Var_;
 struct Op_;
 struct If_;
@@ -77,18 +62,38 @@ struct Let_;
 struct Fun_;
 struct App_;
 struct LetRec_;
-struct Conse_;
+struct Cons_;
 struct Match_;
 
 struct Exp_;
 
 struct Asmp_;
 
-struct Infr_;
-struct Eval_;
-
 struct Cncl_;
 
+
+typedef struct Funt_{
+    struct Type_ *type1_;
+    struct Type_ *type2_;
+}Funt;
+
+typedef struct Listt_{
+    struct Type_ *type_;
+}Listt;
+
+typedef struct Env_{
+    struct Var_ *var_;
+    struct Type_ *type_;
+    struct Env_ *prev;
+}Env;
+
+typedef struct Type_{
+    TypeType type_type;
+    union{
+        struct Funt_ *funt_;
+        struct Listt_ *listt_;
+    }u;
+}Type;
 
 typedef struct Int_{
     int i;
@@ -98,42 +103,6 @@ typedef struct Int_{
 typedef struct Bool_{
     int b;
 }Bool;
-
-
-typedef struct Clsr_{
-    struct Env_ *env_;
-    struct Var_ *arg;
-    struct Exp_ *exp_;
-}Clsr;
-
-typedef struct ClsrRec_{
-    struct Env_ *env_;
-    struct Var_ *fun;
-    struct Var_ *arg;
-    struct Exp_ *exp_;
-}ClsrRec;
-
-typedef struct Consv_{
-    struct Val_ *val1_;
-    struct Val_ *val2_;
-}Consv;
-
-typedef struct Env_{
-    struct Var_ *var_;
-    struct Val_ *val_;
-    struct Env_ *prev;
-}Env;
-
-typedef struct Val_{
-    ValType val_type;
-    union{
-        struct Int_ *int_;
-        struct Bool_ *bool_;
-        struct Clsr_ *clsr_;
-        struct ClsrRec_ *clsrrec_;
-        struct Consv_ *consv_;
-    }u;
-}Val;
 
 typedef struct Var_{
     char *var_name;
@@ -152,13 +121,13 @@ typedef struct If_{
 }If;
 
 typedef struct Let_{
-    struct Var_ *var_;
+    struct Var_ *x;
     struct Exp_ *exp1_;
     struct Exp_ *exp2_;
 }Let;
 
 typedef struct Fun_{
-    struct Var_ *arg;
+    struct Var_ *x;
     struct Exp_ *exp_;
 }Fun;
 
@@ -168,16 +137,16 @@ typedef struct App_{
 }App;
 
 typedef struct LetRec_{
-    struct Var_ *fun;
-    struct Var_ *arg;
+    struct Var_ *x;
+    struct Var_ *y;
     struct Exp_ *exp1_;
     struct Exp_ *exp2_;
 }LetRec;
 
-typedef struct Conse_{
+typedef struct Cons_{
     struct Exp_ *exp1_;
     struct Exp_ *exp2_;
-}Conse;
+}Cons;
 
 typedef struct Match_{
     struct Exp_ *exp1_;
@@ -199,7 +168,7 @@ typedef struct Exp_{
         struct Fun_ *fun_;
         struct App_ *app_;
         struct LetRec_ *letrec_;
-        struct Conse_ *conse_;
+        struct Cons_ *cons_;
         struct Match_ *match_;
     }u;
 }Exp;
@@ -209,25 +178,10 @@ typedef struct Asmp_{
     struct Asmp_ *next;
 }Asmp;
 
-typedef struct Infr_{
-    InfrOpType infr_type;
-    int int1;
-    int int2;
-    struct Val_ *val_;
-}Infr;
-
-typedef struct Eval_{
-    struct Env_ *env_;
-    struct Exp_ *exp_;
-    struct Val_ *val_;
-}Eval;
-
 typedef struct Cncl_{
-    CnclType cncl_type;
     RuleType rule_type;
     struct Asmp_ *asmp_;
-    union{
-        Infr *infr_;
-        Eval *eval_;
-    }u;
+    struct Env_ *env_;
+    struct Exp_ *exp_;
+    struct Type_ *type_;
 }Cncl;

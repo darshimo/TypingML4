@@ -1,6 +1,7 @@
 #include "param.h"
 #include <stdio.h>
 
+/*
 void debugInt(Int *, int);
 void debugBool(Bool *, int);
 void debugClsr(Clsr *, int);
@@ -234,3 +235,4 @@ void debugCncl(Cncl *ob,int d){
     }
     return;
 }
+*/

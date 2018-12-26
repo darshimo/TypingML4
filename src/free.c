@@ -6,6 +6,7 @@
 #include <stdio.h>
 #endif
 
+/*
 void freeInt(Int *);
 void freeBool(Bool *);
 void freeClsr(Clsr *);
@@ -256,3 +257,4 @@ void freeCncl(Cncl *ob){
     free(ob);
     return;
 }
+*/

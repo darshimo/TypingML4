@@ -1,6 +1,7 @@
 #include "param.h"
 #include <stdio.h>
 
+/*
 void writeInt(Int *);
 void writeBool(Bool *);
 void writeClsr(Clsr *);
@@ -308,3 +309,4 @@ void writeCncl(Cncl *ob, int d){
     printf("}");
     return;
 }
+*/

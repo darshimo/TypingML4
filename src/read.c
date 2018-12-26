@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-//#define DEBUG
+#define DEBUG
 
 #ifdef DEBUG
 #include <stdio.h>
@@ -12,16 +12,13 @@ void ind(int d);
 
 
 void error(char *);
-Val *copyVal(Val *);
-Var *copyVar(Var *);
 
+Funt *readFunt(char *, char *);
+Listt *readListt(char *);
+Env *readEnv(char *);
+Type *readType(char *);
 Int *readInt(char *);
 Bool *readBool(char *);
-Clsr *readClsr(char *, char *);
-ClsrRec *readClsrRec(char *, char *);
-Consv *readConsv(char *, char *);
-Env *readEnv(char *);
-Val *readVal(char *);
 Var *readVar(char *);
 If *readIf(char *);
 Op *readOp(char *);
@@ -29,13 +26,155 @@ Let *readLet(char *);
 Fun *readFun(char *);
 App *readApp(char *);
 LetRec *readLetRec(char *);
-Conse *readConse(char *, char *);
+Cons *readCons(char *, char *);
 Match *readMatch(char *);
 Exp *readExp(char *);
-Infr *readInfr(char *);
-Eval *readEval(char *);
 Cncl *readCncl(char *);
 
+
+Funt *readFunt(char *str1, char *str2){
+#ifdef DEBUG
+    printf("funtt : %s -> %s\n",str1,str2);
+#endif
+    Funt *ob = (Funt *)malloc(sizeof(Funt));
+    ob->type1_ = readType(str1);
+    ob->type2_ = readType(str2);
+    return ob;
+}
+
+Listt *readListt(char *str){
+#ifdef DEBUG
+    printf("listt : %s\n",str);
+#endif
+    Listt *ob = (Listt *)malloc(sizeof(Listt));
+    char *tmp1 = str;
+    char *tmp2 = NULL;
+    while(*tmp1!='\0'){
+        tmp2 = tmp1;
+        tmp1+=strcspn(tmp1," ");
+        tmp1+=strspn(tmp1," ");
+    }
+    if(strncmp(tmp2,"list",4)==0){
+        *tmp2 = '\0';
+        ob->type_ = readType(str);
+    }else{
+        error("invalid list-type.");
+    }
+    return ob;
+}
+
+Env *readEnv(char *str){
+    if(*str=='\0')return NULL;
+
+    Env *ob = (Env *)malloc(sizeof(Env));
+
+    Env *env_tmp = NULL;
+
+    char *str1, *str2;
+
+    str1 = strrchr(str,',');
+
+    if(str1==NULL){
+        str1 = str;
+    }else{
+        *str1 = '\0';
+        str1++;
+        str1+=strspn(str1," ");
+        env_tmp = readEnv(str);
+    }
+    str2 = strchr(str1,':');
+    *str2 = '\0';
+    str2++;
+    str2+=strspn(str2," ");
+
+#ifdef DEBUG
+    printf("env : %s,%s\n",str1,str2);
+#endif
+
+    ob->var_ = readVar(str1);
+    ob->type_ = readType(str2);
+    ob->prev = env_tmp;
+
+    return ob;
+}
+
+
+Type *readType(char* str){
+    char *tmp = str;
+    int count = 0;
+    if(*str=='('){
+        tmp++;
+        while(1){
+            tmp += strcspn(tmp,"()");
+            if(*tmp=='('){
+                count++;
+            }else if(*tmp==')'){
+                if(count==0)break;
+                count--;
+            }else{
+                break;
+            }
+            tmp++;
+        }
+        char *tmp2 = tmp+1;
+        if(*(tmp2+=strspn(tmp2," "))=='\0'){
+            *tmp = '\0';
+            str++;
+            str+=strspn(str," ");
+            return readType(str);
+        };
+    }
+#ifdef DEBUG
+    //printf("type : %s\n",str);
+#endif
+    Type *ob = (Type *)malloc(sizeof(Type));
+
+    tmp += strcspn(tmp," ");
+    tmp += strspn(tmp," ");
+    if(*tmp=='\0'){//when type is int or bool
+        if(strncmp(str,"int",3)==0){
+            ob->type_type = INTT;
+#ifdef DEBUG
+            printf("intt : %s\n",str);
+#endif
+        }else if(strncmp(str,"bool",3)==0){
+            ob->type_type = BOOLT;
+#ifdef DEBUG
+            printf("boolt : %s\n",str);
+#endif
+        }else{
+            error("invalid type.");
+        }
+    }else{
+        tmp = str;
+        count = 0;
+        while(1){
+            tmp += strcspn(tmp,"()-");
+            if(*tmp=='('){
+                count++;
+            }else if(*tmp==')'){
+                count--;
+            }else if(*tmp=='-'){
+                if(count==0)break;
+            }else{
+                break;
+            }
+            tmp++;
+        }
+        if(*tmp=='-'){//when type is fun
+            *tmp = '\0';
+            tmp+=2;
+            tmp+=strspn(tmp," ");
+            ob->type_type = FUNT;
+            ob->u.funt_ = readFunt(str, tmp);
+        }else{//when type is list
+            ob->type_type = LISTT;
+            ob->u.listt_ = readListt(str);
+        }
+    }
+
+    return ob;
+}
 
 Int *readInt(char *str){
 #ifdef DEBUG
@@ -54,220 +193,6 @@ Bool *readBool(char *str){
     Bool *ob = (Bool *)malloc(sizeof(Bool));
     if(str[0]=='t')ob->b = 1;
     else ob->b = 0;
-    return ob;
-}
-
-
-Clsr *readClsr(char *str1, char *str2){
-#ifdef DEBUG
-    printf("clsr : (%s)[%s]\n",str1,str2);
-#endif
-    Clsr *ob = (Clsr *)malloc(sizeof(Clsr));
-    ob->env_ = readEnv(str1);
-    char *tmp;
-    str2 += strcspn(str2," ");
-    str2 += strspn(str2," ");
-    tmp = str2;
-    str2 += strcspn(str2," ");
-    str2 += strspn(str2," ");
-    str2 += strcspn(str2," ");
-    str2 += strspn(str2," ");
-    *(tmp+strcspn(tmp," "))='\0';
-
-    ob->arg = (Var *)malloc(sizeof(Var));
-    ob->arg->var_name = (char *)malloc(sizeof(char)*(strlen(tmp)+1));
-    strcpy(ob->arg->var_name,tmp);
-    ob->exp_ = readExp(str2);
-    return ob;
-}
-
-
-ClsrRec *readClsrRec(char *str1, char *str2){
-#ifdef DEBUG
-    printf("clserec : (%s)[%s]\n",str1,str2);
-#endif
-    ClsrRec *ob = (ClsrRec *)malloc(sizeof(ClsrRec));
-    ob->env_ = readEnv(str1);
-
-    char *tmp1, *tmp2;
-    str2 += strcspn(str2," ");
-    str2 += strspn(str2," ");
-    tmp1 = str2;
-    str2 += strcspn(str2," ");
-    str2 += strspn(str2," ");
-    str2 += strcspn(str2," ");
-    str2 += strspn(str2," ");
-    str2 += strcspn(str2," ");
-    str2 += strspn(str2," ");
-    tmp2 = str2;
-    str2 += strcspn(str2," ");
-    str2 += strspn(str2," ");
-    str2 += strcspn(str2," ");
-    str2 += strspn(str2," ");
-    *(tmp1+strcspn(tmp1," "))='\0';
-    *(tmp2+strcspn(tmp2," "))='\0';
-
-    ob->fun = (Var *)malloc(sizeof(Var));
-    ob->fun->var_name = (char *)malloc(sizeof(char)*(strlen(tmp1)+1));
-    strcpy(ob->fun->var_name,tmp1);
-    ob->arg = (Var *)malloc(sizeof(Var));
-    ob->arg->var_name = (char *)malloc(sizeof(char)*(strlen(tmp2)+1));
-    strcpy(ob->arg->var_name,tmp2);
-    ob->exp_ = readExp(str2);
-
-    return ob;
-}
-
-Consv *readConsv(char *str1, char *str2){
-#ifdef DEBUG
-    printf("consv : %s :: %s\n",str1,str2);
-#endif
-    Consv *ob = (Consv *)malloc(sizeof(Consv));
-    ob->val1_ = readVal(str1);
-    ob->val2_ = readVal(str2);
-    if(ob->val2_->val_type==CONS_){
-        if(ob->val1_->val_type!=ob->val2_->u.consv_->val1_->val_type){
-            error("different val-type(1)");
-        }
-    }else if(ob->val2_->val_type!=NIL_){
-        error("different val-type(2)");
-    }
-
-    return ob;
-}
-
-
-Env *readEnv(char *str){
-    if(*str=='\0')return NULL;
-
-    Env *ob = (Env *)malloc(sizeof(Env));
-
-    Env *env_tmp = NULL;
-
-    char *tmp1 = str;
-    str = NULL;
-    char *tmp2 = tmp1;
-
-    int count = 0;
-    while(1){
-        tmp2 += strcspn(tmp2,"(),");
-        if(*tmp2=='('){
-            count++;
-        }else if(*tmp2==')'){
-            count--;
-        }else if(*tmp2==','){
-            if(count==0){
-                str = tmp2;
-            }
-        }else{
-            break;
-        }
-        tmp2++;
-    }
-
-    if(str==NULL){
-        str = tmp1;
-    }else{
-        *str = '\0';
-        str++;
-        str+=strspn(str," ");
-        env_tmp = readEnv(tmp1);
-    }
-    char *str1 = strtok(str,"=");
-    char *str2 = strtok(NULL,"=");
-    //char *str1 = str;
-    //char *str2 = strchr(str1,'=');
-    //*str2 = '\0';
-    //str2++;
-    str2+=strspn(str2," ");
-
-#ifdef DEBUG
-    printf("env : %s,%s\n",str1,str2);
-#endif
-
-    ob->var_ = readVar(str1);
-    ob->val_ = readVal(str2);
-    ob->prev = env_tmp;
-
-    return ob;
-}
-
-
-Val *readVal(char* str){
-#ifdef DEBUG
-    //printf("val : %s\n",str);
-#endif
-    Val *ob = (Val *)malloc(sizeof(Val));
-
-    int count = 0;
-    char *tmp = str;
-    while(1){
-        tmp += strcspn(tmp,"()[]:");
-        if(*tmp=='('||*tmp=='['){
-            count++;
-        }else if(*tmp==')'||*tmp==']'){
-            count--;
-        }else if(*tmp==':'){
-            if(count==0){
-                break;
-            }
-        }else{
-            break;
-        }
-        tmp++;
-    }
-
-    if(*tmp==':'){
-        *tmp='\0';
-        tmp+=2;
-        tmp+=strspn(tmp," ");
-        ob->val_type = CONS_;
-        ob->u.consv_ = readConsv(str,tmp); 
-    }else if(str[0]=='t'||str[0]=='f'){ // when val is bool
-        ob->val_type = BOOL_;
-        ob->u.bool_ = readBool(str); 
-    }else if(47<str[0]&&str[0]<58){ //when val is int
-        ob->val_type = INT_;
-        ob->u.int_ = readInt(str);
-    }else if(str[0]=='['){ // when val is nil
-        ob->val_type = NIL_;
-    }else if(str[0]=='('){ //when val is clsr or clsrrec
-        char *str1, *str2;
-        str++;
-        str1 = str;
-        int count = 0;
-        while(1){
-            str+=strcspn(str,"()");
-            if(*str=='('){
-                count++;
-            }else if(*str==')'){
-                if(count==0){
-                    break;
-                }
-                count--;
-            }else{
-                error("1mismatch parentheses.");
-            }
-            str++;
-        }
-        *str = '\0';
-        str+=2;
-        str+=strspn(str," ");
-        str2 = str;
-        *strrchr(str2,']') = '\0';
-        if(str2[0]=='f'){
-            ob->val_type = CLSR;
-            ob->u.clsr_ = readClsr(str1,str2);
-        }else if(str2[0]=='r'){
-            ob->val_type = CLSRREC;
-            ob->u.clsrrec_ = readClsrRec(str1,str2);
-        }else{
-            error("val is not correct\n");
-        }
-    }else{
-        error("val is not correct\n");
-    }
-
     return ob;
 }
 
@@ -435,7 +360,7 @@ Let *readLet(char *str){
     str2+=2;
     str2 += strspn(str2," ");
 
-    ob->var_ = readVar(str);
+    ob->x = readVar(str);
     ob->exp1_ = readExp(str1);
     ob->exp2_ = readExp(str2);
 
@@ -458,9 +383,9 @@ Fun *readFun(char *str){
     str += strspn(str," ");
     *(tmp+strcspn(tmp," "))='\0';
 
-    ob->arg = (Var *)malloc(sizeof(Var));
-    ob->arg->var_name = (char *)malloc(sizeof(char)*(strlen(tmp)+1));
-    strcpy(ob->arg->var_name,tmp);
+    ob->x = (Var *)malloc(sizeof(Var));
+    ob->x->var_name = (char *)malloc(sizeof(char)*(strlen(tmp)+1));
+    strcpy(ob->x->var_name,tmp);
     ob->exp_ = readExp(str);
 
     return ob;
@@ -542,12 +467,12 @@ LetRec *readLetRec(char *str){
     *(tmp1+strcspn(tmp1," "))='\0';
     *(tmp2+strcspn(tmp2," "))='\0';
 
-    ob->fun = (Var *)malloc(sizeof(Var));
-    ob->fun->var_name = (char *)malloc(sizeof(char)*(strlen(tmp1)+1));
-    strcpy(ob->fun->var_name,tmp1);
-    ob->arg = (Var *)malloc(sizeof(Var));
-    ob->arg->var_name = (char *)malloc(sizeof(char)*(strlen(tmp2)+1));
-    strcpy(ob->arg->var_name,tmp2);
+    ob->x = (Var *)malloc(sizeof(Var));
+    ob->x->var_name = (char *)malloc(sizeof(char)*(strlen(tmp1)+1));
+    strcpy(ob->x->var_name,tmp1);
+    ob->y = (Var *)malloc(sizeof(Var));
+    ob->y->var_name = (char *)malloc(sizeof(char)*(strlen(tmp2)+1));
+    strcpy(ob->y->var_name,tmp2);
 
     int count = 0;
     while(1){
@@ -575,11 +500,11 @@ LetRec *readLetRec(char *str){
 }
 
 
-Conse *readConse(char *str1, char *str2){
+Cons *readCons(char *str1, char *str2){
 #ifdef DEBUG
-    printf("conse : %s :: %s\n",str1,str2);
+    printf("cons : %s :: %s\n",str1,str2);
 #endif
-    Conse *ob = (Conse *)malloc(sizeof(Conse));
+    Cons *ob = (Cons *)malloc(sizeof(Cons));
 
     ob->exp1_ = readExp(str1);
     ob->exp2_ = readExp(str2);
@@ -770,12 +695,12 @@ Exp *readExp(char* str){
                     }
                     tmp++;
                 }
-                if(*tmp==':'){//when exp is conse
+                if(*tmp==':'){//when exp is cons
                     *tmp = '\0';
                     tmp+=2;
                     tmp+=strspn(tmp," ");
                     ob->exp_type = CONS;
-                    ob->u.conse_ = readConse(str,tmp);
+                    ob->u.cons_ = readCons(str,tmp);
                 }else if(*tmp=='\0'){//when exp is app
                     ob->exp_type = APP;
                     ob->u.app_ = readApp(str);
@@ -791,11 +716,11 @@ Exp *readExp(char* str){
 }
 
 
-Eval *readEval(char* str){
+Cncl *readCncl(char* str){
 #ifdef DEBUG
-    printf("eval: %s\n",str);
+    printf("cncl: %s\n",str);
 #endif
-    Eval *eval_ob = (Eval *)malloc(sizeof(Eval));
+    Cncl *ob = (Cncl *)malloc(sizeof(Cncl));
 
     char *str1, *str2, *str3;
     str1 = str;
@@ -803,68 +728,14 @@ Eval *readEval(char* str){
     *str2 = '\0';
     str2+=2;
     str2+=strspn(str2," ");
-    str3 = strstr(str2," evalto ");
+    str3 = strstr(str2," : ");
     *str3 = '\0';
-    str3+=8;
+    str3+=3;
     str3+=strspn(str3," ");
 
-    eval_ob->env_ = readEnv(str1);
-    eval_ob->exp_ = readExp(str2);
-    eval_ob->val_ = readVal(str3);
+    ob->env_ = readEnv(str1);
+    ob->exp_ = readExp(str2);
+    ob->type_ = readType(str3);
 
-    return eval_ob;
-}
-
-
-Infr *readInfr(char* str){
-#ifdef DEBUG
-    printf("infr: %s\n",str);
-#endif
-    Infr *infr_ob = (Infr *)malloc(sizeof(Infr));
-
-    char *tp;
-
-    tp = strtok(str," ");
-    infr_ob->int1 = atoi(tp);
-
-    tp = strtok(NULL," ");
-    if(strcmp(tp,"plus")==0){
-        infr_ob->infr_type = PLUS;
-    }else if(strcmp(tp,"minus")==0){
-        infr_ob->infr_type = MINUS;
-    }else if(strcmp(tp,"times")==0){
-        infr_ob->infr_type = TIMES;
-    }else{
-        infr_ob->infr_type = LT;
-        tp = strtok(NULL," ");
-    }
-
-    tp = strtok(NULL," ");
-    infr_ob->int2 = atoi(tp);
-
-    tp = strtok(NULL," ");
-
-    tp = strtok(NULL," ");
-    infr_ob->val_ = readVal(tp);
-
-    return infr_ob;
-}
-
-
-Cncl *readCncl(char* str){
-#ifdef DEBUG
-    //printf("cncl: %s\n",str);
-#endif
-    Cncl* cncl_ob = (Cncl *)malloc(sizeof(Cncl));
-
-    str += strspn(str," ");
-    if(strstr(str," is ")==NULL){
-        cncl_ob->cncl_type = EVAL;
-        cncl_ob->u.eval_ = readEval(str);
-    }else{
-        cncl_ob->cncl_type = INFR;
-        cncl_ob->u.infr_ = readInfr(str);
-    }
-
-    return cncl_ob;
+    return ob;
 }

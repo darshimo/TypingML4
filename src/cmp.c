@@ -3,6 +3,7 @@
 
 //#define DEBUG
 
+/*
 int cmpInt(Int *,Int *);
 int cmpBool(Bool *,Bool *);
 int cmpClsr(Clsr *,Clsr *);
@@ -272,3 +273,4 @@ int cmpExp(Exp *ob1, Exp *ob2){
     if(ob1->exp_type==MATCH)cmpMatch(ob1->u.match_,ob2->u.match_);
     return 0;
 }
+*/
