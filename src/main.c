@@ -9,10 +9,10 @@ void debugCncl(Cncl *,int);
 
 void error(char*);
 Cncl* readCncl(char*);
+Type *copyType(Type *);
+int cmpType(Type*,Type*);
 /*
 void derivation(Cncl*, int);
-int cmpType(Type*,Type*);
-Type *copyType(Type *);
 void freeCncl(Cncl *);
 void writeCncl(Cncl *, int);
 */
@@ -31,14 +31,8 @@ int main(int argc, char *argv[]){
 #endif
 
 
-    /*
-    Val *result;
-    if(cncl_ob->cncl_type == INFR){
-        result = copyVal(cncl_ob->u.infr_->val_);
-    }else{
-        result = copyVal(cncl_ob->u.eval_->val_);
-    }
-    */
+    Type *result = copyType(cncl_ob->type_);
+    cmpType(result,result);
 
 
 #ifdef DEBUG
