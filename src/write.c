@@ -1,14 +1,12 @@
 #include "param.h"
 #include <stdio.h>
 
-/*
+void writeFunt(Funt *);
+void writeListt(Listt *);
+void writeEnv(Env *);
+void writeType(Type *);
 void writeInt(Int *);
 void writeBool(Bool *);
-void writeClsr(Clsr *);
-void writeClsrRec(ClsrRec *);
-void writeConsv(Consv *);
-void writeEnv(Env *);
-void writeVal(Val *);
 void writeVar(Var *);
 void writeOp(Op *);
 void writeIf(If *);
@@ -16,62 +14,32 @@ void writeLet(Let *);
 void writeFun(Fun *);
 void writeApp(App *);
 void writeLetRec(LetRec *);
-void writeConse(Conse *);
+void writeCons(Cons *);
 void writeMatch(Match *);
 void writeExp(Exp *);
 void writeAsmp(Asmp *, int);
-void writeInfr(Infr *);
-void writeEval(Eval *);
 void writeCncl(Cncl *, int);
 
 void ind(int);
 void writeRuleName(Cncl *);
 
 
-void writeInt(Int *ob){
-    printf("%d",ob->i);
-    return;
-}
-
-void writeBool(Bool *ob){
-    if(ob->b)printf("true");
-    else printf("false");
-    return;
-}
-
-void writeClsr(Clsr *ob){
-    printf("(");
-    writeEnv(ob->env_);
-    printf(")[fun ");
-    writeVar(ob->arg);
-    printf(" -> ");
-    writeExp(ob->exp_);
-    printf("]");
-    return;
-}
-
-void writeClsrRec(ClsrRec *ob){
-    printf("(");
-    writeEnv(ob->env_);
-    printf(")[rec ");
-    writeVar(ob->fun);
-    printf(" = fun ");
-    writeVar(ob->arg);
-    printf(" -> ");
-    writeExp(ob->exp_);
-    printf("]");
-    return;
-}
-
-void writeConsv(Consv *ob){
-    char paren = 0;
-    if(ob->val1_->val_type==CONS_)paren=1;
-
+void writeFunt(Funt *ob){
+    char paren = (ob->type1_->type_type==FUNT);
     if(paren)printf("(");
-    writeVal(ob->val1_);
+    writeType(ob->type1_);
     if(paren)printf(")");
-    printf(" :: ");
-    writeVal(ob->val2_);
+    printf(" -> ");
+    writeType(ob->type2_);
+    return;
+}
+
+void writeListt(Listt *ob){
+    char paren = (ob->type_->type_type==FUNT);
+    if(paren)printf("(");
+    writeType(ob->type_);
+    if(paren)printf(")");
+    printf(" list");
     return;
 }
 
@@ -83,24 +51,31 @@ void writeEnv(Env *ob){
     }
     writeVar(ob->var_);
     printf(" = ");
-    writeVal(ob->val_);
+    writeType(ob->type_);
     return;
 }
 
-void writeVal(Val *ob){
-    if(ob->val_type==INT_){
-        writeInt(ob->u.int_);
-    }else if(ob->val_type==BOOL_){
-        writeBool(ob->u.bool_);
-    }else if(ob->val_type==CLSR){
-        writeClsr(ob->u.clsr_);
-    }else if(ob->val_type==CLSRREC){
-        writeClsrRec(ob->u.clsrrec_);
-    }else if(ob->val_type==CONS_){
-        writeConsv(ob->u.consv_);
+void writeType(Type *ob){
+    if(ob->type_type==INTT){
+        printf("int");
+    }else if(ob->type_type==BOOLT){
+        printf("bool");
+    }else if(ob->type_type==FUNT){
+        writeFunt(ob->u.funt_);
     }else{
-        printf("[]");
+        writeListt(ob->u.listt_);
     }
+    return;
+}
+
+void writeInt(Int *ob){
+    printf("%d",ob->i);
+    return;
+}
+
+void writeBool(Bool *ob){
+    if(ob->b)printf("true");
+    else printf("false");
     return;
 }
 
@@ -160,7 +135,7 @@ void writeIf(If *ob){
 
 void writeLet(Let *ob){
     printf("let ");
-    writeVar(ob->var_);
+    writeVar(ob->x);
     printf (" = ");
     writeExp(ob->exp1_);
     printf (" in ");
@@ -170,7 +145,7 @@ void writeLet(Let *ob){
 
 void writeFun(Fun *ob){
     printf("fun ");
-    writeVar(ob->arg);
+    writeVar(ob->x);
     printf(" -> ");
     writeExp(ob->exp_);
     return;
@@ -195,9 +170,9 @@ void writeApp(App *ob){
 
 void writeLetRec(LetRec *ob){
     printf("let rec ");
-    writeVar(ob->fun);
+    writeVar(ob->x);
     printf(" = fun ");
-    writeVar(ob->arg);
+    writeVar(ob->y);
     printf(" -> ");
     writeExp(ob->exp1_);
     printf(" in ");
@@ -205,7 +180,7 @@ void writeLetRec(LetRec *ob){
     return;
 }
 
-void writeConse(Conse *ob){
+void writeCons(Cons *ob){
     char paren1 = 0;
     char paren2 = 0;
     if(ob->exp1_->exp_type==OP || ob->exp1_->exp_type==IF || ob->exp1_->exp_type==LET || ob->exp1_->exp_type==FUN || ob->exp1_->exp_type==APP || ob->exp1_->exp_type==LETREC || ob->exp1_->exp_type==CONS)paren1 = 1;
@@ -255,7 +230,7 @@ void writeExp(Exp *ob){
     }else if(ob->exp_type==LETREC){
         writeLetRec(ob->u.letrec_);
     }else if(ob->exp_type==CONS){
-        writeConse(ob->u.conse_);
+        writeCons(ob->u.cons_);
     }else if(ob->exp_type==MATCH){
         writeMatch(ob->u.match_);
     }else{
@@ -274,33 +249,16 @@ void writeAsmp(Asmp *ob, int d){
     return;
 }
 
-void writeInfr(Infr *ob){
-    printf("%d",ob->int1);
-    InfrOpType tmp = ob->infr_type;
-    if(tmp == PLUS)printf(" plus ");
-    else if(tmp == MINUS)printf(" minus ");
-    else if(tmp == TIMES)printf(" times ");
-    else printf(" less than ");
-    printf("%d",ob->int2);
-    printf(" is ");
-    writeVal(ob->val_);
-    return;
-}
+void writeCncl(Cncl *ob, int d){
+    ind(d);
 
-void writeEval(Eval *ob){
     writeEnv(ob->env_);
     if(ob->env_!=NULL)printf(" ");
     printf("|- ");
     writeExp(ob->exp_);
-    printf(" evalto ");
-    writeVal(ob->val_);
-    return;
-}
+    printf(" : ");
+    writeType(ob->type_);
 
-void writeCncl(Cncl *ob, int d){
-    ind(d);
-    if(ob->cncl_type==INFR)writeInfr(ob->u.infr_);
-    else writeEval(ob->u.eval_);
     printf(" by ");
     writeRuleName(ob);
     printf(" {");
@@ -309,4 +267,3 @@ void writeCncl(Cncl *ob, int d){
     printf("}");
     return;
 }
-*/
