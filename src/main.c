@@ -38,6 +38,7 @@ int main(int argc, char *argv[]){
     }else{
         result = copyVal(cncl_ob->u.eval_->val_);
     }
+    */
 
 
 #ifdef DEBUG
@@ -47,6 +48,7 @@ int main(int argc, char *argv[]){
 #endif
 
 
+    /*
 #ifdef DEBUG
     printf("derivation start.\n");
 #endif

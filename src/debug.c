@@ -1,14 +1,12 @@
 #include "param.h"
 #include <stdio.h>
 
-/*
+void debugFunt(Funt *, int);
+void debugListt(Listt *, int);
+void debugEnv(Env *, int);
+void debugType(Type *, int);
 void debugInt(Int *, int);
 void debugBool(Bool *, int);
-void debugClsr(Clsr *, int);
-void debugClsrRec(ClsrRec *, int);
-void debugConsv(Consv *, int);
-void debugEnv(Env *, int);
-void debugVal(Val *, int);
 void debugVar(Var *, int);
 void debugOp(Op *, int);
 void debugIf(If *, int);
@@ -16,14 +14,54 @@ void debugLet(Let *, int);
 void debugFun(Fun *, int);
 void debugApp(App *, int);
 void debugLetRec(LetRec *, int);
-void debugConse(Conse *, int);
+void debugCons(Cons *, int);
 void debugMatch(Match *, int);
 void debugExp(Exp *, int);
-void debugInfr(Infr *, int);
-void debugEval(Eval *, int);
 void debugCncl(Cncl *, int);
 void tree(int);
 
+
+void debugFunt(Funt *ob, int d){
+    tree(d);
+    printf("funt\n");
+    debugType(ob->type1_,d+1);
+    debugType(ob->type2_,d+1);
+    return;
+}
+
+void debugListt(Listt *ob, int d){
+    tree(d);
+    printf("listt\n");
+    debugType(ob->type_,d+1);
+    return;
+}
+
+void debugEnv(Env *ob, int d){
+    if(ob==NULL){
+        tree(d);
+        printf("env\n");
+        return;
+    }
+    debugEnv(ob->prev,d);
+    debugVar(ob->var_,d+1);
+    debugType(ob->type_,d+1);
+    return;
+};
+
+void debugType(Type *ob, int d){
+    if(ob->type_type==INTT){
+        tree(d);
+        printf("intt\n");
+    }else if(ob->type_type==BOOLT){
+        tree(d);
+        printf("boolt\n");
+    }else if(ob->type_type==FUNT){
+        debugFunt(ob->u.funt_,d);
+    }else{
+        debugListt(ob->u.listt_,d);
+    }
+    return;
+};
 
 void debugInt(Int *ob, int d){
     tree(d);
@@ -41,62 +79,6 @@ void debugBool(Bool *ob, int d){
     else printf("false\n");
     return;
 }
-
-void debugClsr(Clsr *ob, int d){
-    tree(d);
-    printf("clsr\n");
-    debugEnv(ob->env_,d+1);
-    debugVar(ob->arg,d+1);
-    debugExp(ob->exp_,d+1);
-    return;
-}
-
-void debugClsrRec(ClsrRec *ob, int d){
-    tree(d);
-    printf("clsrrec\n");
-    debugEnv(ob->env_,d+1);
-    debugVar(ob->fun,d+1);
-    debugVar(ob->arg,d+1);
-    debugExp(ob->exp_,d+1);
-    return;
-}
-
-void debugConsv(Consv *ob, int d){
-    tree(d);
-    printf("consv\n");
-    debugVal(ob->val1_,d+1);
-    debugVal(ob->val2_,d+1);
-    return;
-}
-
-void debugEnv(Env *ob, int d){
-    if(ob==NULL){
-        tree(d);
-        printf("env\n");
-        return;
-    }
-    debugEnv(ob->prev,d);
-    debugVar(ob->var_,d+1);
-    debugVal(ob->val_,d+1);
-    return;
-};
-
-void debugVal(Val *ob, int d){
-    tree(d);
-    printf("val\n");
-    if(ob->val_type==INT_){
-        debugInt(ob->u.int_,d+1);
-    }else if(ob->val_type==BOOL_){
-        debugBool(ob->u.bool_,d+1);
-    }else if(ob->val_type==CLSR){
-        debugClsr(ob->u.clsr_,d+1);
-    }else if(ob->val_type==CLSRREC){
-        debugClsrRec(ob->u.clsrrec_,d+1);
-    }else if(ob->val_type==CONS_){
-        debugConsv(ob->u.consv_,d+1);
-    }
-    return;
-};
 
 void debugVar(Var *ob, int d){
     tree(d);
@@ -129,7 +111,7 @@ void debugIf(If *ob, int d){
 void debugLet(Let *ob, int d){
     tree(d);
     printf("let\n");
-    debugVar(ob->var_,d+1);
+    debugVar(ob->x,d+1);
     debugExp(ob->exp1_,d+1);
     debugExp(ob->exp2_,d+1);
     return;
@@ -138,7 +120,7 @@ void debugLet(Let *ob, int d){
 void debugFun(Fun *ob, int d){
     tree(d);
     printf("fun\n");
-    debugVar(ob->arg,d+1);
+    debugVar(ob->x,d+1);
     debugExp(ob->exp_,d+1);
     return;
 }
@@ -154,16 +136,16 @@ void debugApp(App *ob, int d){
 void debugLetRec(LetRec *ob, int d){
     tree(d);
     printf("letrec\n");
-    debugVar(ob->fun,d+1);
-    debugVar(ob->arg,d+1);
+    debugVar(ob->x,d+1);
+    debugVar(ob->y,d+1);
     debugExp(ob->exp1_,d+1);
     debugExp(ob->exp2_,d+1);
     return;
 }
 
-void debugConse(Conse *ob, int d){
+void debugCons(Cons *ob, int d){
     tree(d);
-    printf("conse\n");
+    printf("cons\n");
     debugExp(ob->exp1_,d+1);
     debugExp(ob->exp2_,d+1);
     return;
@@ -202,37 +184,18 @@ void debugExp(Exp *ob, int d){
     }else if(ob->exp_type==LETREC){
         debugLetRec(ob->u.letrec_,d+1);
     }else if(ob->exp_type==CONS){
-        debugConse(ob->u.conse_,d+1);
+        debugCons(ob->u.cons_,d+1);
     }else if(ob->exp_type==MATCH){
         debugMatch(ob->u.match_,d+1);
     }
     return;
 };
 
-void debugInfr(Infr *ob, int d){
-    tree(d);
-    printf("infr\n");
-    return;
-};
-
-void debugEval(Eval *ob, int d){
-    tree(d);
-    printf("eval\n");
-
-    debugEnv(ob->env_,d+1);
-    debugExp(ob->exp_,d+1);
-    debugVal(ob->val_,d+1);
-    return;
-};
-
 void debugCncl(Cncl *ob,int d){
     tree(d);
     printf("cncl\n");
-    if(ob->cncl_type==INFR){
-        debugInfr(ob->u.infr_,d+1);
-    }else{
-        debugEval(ob->u.eval_,d+1);
-    }
+    debugEnv(ob->env_,d+1);
+    debugExp(ob->exp_,d+1);
+    debugType(ob->type_,d+1);
     return;
 }
-*/
