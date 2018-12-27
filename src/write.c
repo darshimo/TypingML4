@@ -22,6 +22,7 @@ void writeCncl(Cncl *, int);
 
 void ind(int);
 void writeRuleName(Cncl *);
+void error(char *);
 
 
 void writeFunt(Funt *ob){
@@ -62,8 +63,10 @@ void writeType(Type *ob){
         printf("bool");
     }else if(ob->type_type==FUNT){
         writeFunt(ob->u.funt_);
-    }else{
+    }else if(ob->type_type==LISTT){
         writeListt(ob->u.listt_);
+    }else{
+        error("type is not defined.");
     }
     return;
 }

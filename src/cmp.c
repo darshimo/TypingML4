@@ -20,6 +20,7 @@ int cmpCons(Cons *, Cons *);
 int cmpMatch(Match *, Match *);
 int cmpExp(Exp *,Exp *);
 
+void error(char *);
 
 
 #ifdef DEBUG
@@ -27,7 +28,6 @@ int cmpExp(Exp *,Exp *);
 void writeFunt(Funt *);
 void writeListt(Listt *);
 void writeEnv(Env *);
-void writeType(Type *);
 void writeInt(Int *);
 void writeBool(Bool *);
 void writeVar(Var *);
@@ -105,6 +105,8 @@ int cmpEnv(Env *ob1, Env *ob2){
 }
 
 int cmpType(Type *ob1, Type *ob2){
+    if(ob1->type_type==TBD)error("type of ob1 is not defined.");
+    if(ob2->type_type==TBD)error("type of ob2 is not defined.");
     if(ob1->type_type!=ob2->type_type)return 1;
     if(ob1->type_type==INTT){
 #ifdef DEBUG
@@ -119,7 +121,7 @@ int cmpType(Type *ob1, Type *ob2){
         return 0;
     }
     if(ob1->type_type==FUNT)return cmpFunt(ob1->u.funt_,ob2->u.funt_);
-    if(ob1->type_type==LISTT)cmpListt(ob1->u.listt_,ob2->u.listt_);
+    if(ob1->type_type==LISTT)return cmpListt(ob1->u.listt_,ob2->u.listt_);
     return 0;
 }
 

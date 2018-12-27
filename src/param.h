@@ -17,6 +17,7 @@ typedef enum{//rule type
 }RuleType;
 
 typedef enum{ //type type
+    TBD,
     INTT,
     BOOLT,
     FUNT,

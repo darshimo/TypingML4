@@ -57,7 +57,7 @@ void debugType(Type *ob, int d){
         printf("boolt\n");
     }else if(ob->type_type==FUNT){
         debugFunt(ob->u.funt_,d);
-    }else{
+    }else if(ob->type_type==LISTT){
         debugListt(ob->u.listt_,d);
     }
     return;
