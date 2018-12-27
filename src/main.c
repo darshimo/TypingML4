@@ -9,8 +9,6 @@ void debugCncl(Cncl *,int);
 
 void error(char*);
 Cncl* readCncl(char*);
-Type *copyType(Type *);
-int cmpType(Type*,Type*);
 /*
 void derivation(Cncl*, int);
 void freeCncl(Cncl *);
@@ -31,10 +29,6 @@ int main(int argc, char *argv[]){
 #endif
 
 
-    Type *result = copyType(cncl_ob->type_);
-    cmpType(result,result);
-
-
 #ifdef DEBUG
     printf("debug start.\n");
     debugCncl(cncl_ob,0);
@@ -49,23 +43,6 @@ int main(int argc, char *argv[]){
     derivation(cncl_ob,0);
 #ifdef DEBUG
     printf("derivation complete.\n\n");
-#endif
-
-
-#ifdef DEBUG
-    printf("cmp ans start.\n");
-#endif
-    if(cncl_ob->cncl_type == INFR){
-        if(cmpVal(cncl_ob->u.infr_->val_,result)){
-            error("result is not correct.\n");
-        }
-    }else{
-        if(cmpVal(cncl_ob->u.eval_->val_,result)){
-            error("result is not correct.\n");
-        }
-    }
-#ifdef DEBUG
-    printf("cmp ans complete.\n\n");
 #endif
 
 
