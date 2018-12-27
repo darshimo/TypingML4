@@ -13,7 +13,7 @@ typedef enum{//rule type
     T_LETREC,
     T_NIL,
     T_CONS,
-    T_MATCT
+    T_MATCH
 }RuleType;
 
 typedef enum{ //type type

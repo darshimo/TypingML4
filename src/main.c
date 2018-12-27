@@ -9,8 +9,8 @@ void debugCncl(Cncl *,int);
 
 void error(char*);
 Cncl* readCncl(char*);
-/*
 void derivation(Cncl*, int);
+/*
 void freeCncl(Cncl *);
 void writeCncl(Cncl *, int);
 */
@@ -36,7 +36,6 @@ int main(int argc, char *argv[]){
 #endif
 
 
-    /*
 #ifdef DEBUG
     printf("derivation start.\n");
 #endif
@@ -46,6 +45,7 @@ int main(int argc, char *argv[]){
 #endif
 
 
+    /*
     writeCncl(cncl_ob,0);
 
 

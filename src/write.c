@@ -66,7 +66,8 @@ void writeType(Type *ob){
     }else if(ob->type_type==LISTT){
         writeListt(ob->u.listt_);
     }else{
-        error("type is not defined.");
+        //error("type is not defined.");
+        printf("TBD");
     }
     return;
 }

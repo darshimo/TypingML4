@@ -658,9 +658,6 @@ Exp *readExp(char* str){
     }else if(strncmp(str,"match ",6)==0){//when exp is match
         ob->exp_type = MATCH;
         ob->u.match_ = readMatch(str);
-    }else if(strncmp(str,"true",4)*strncmp(str,"false",5)==0){//when exp is bool
-        ob->exp_type = BOOL;
-        ob->u.bool_ = readBool(str);
     }else{
 
         char *tmp;
@@ -675,9 +672,14 @@ Exp *readExp(char* str){
             tmp = str;
             tmp += strcspn(tmp," ()+-*<:");
             tmp += strspn(tmp," ");
-            if(*tmp=='\0'){//when exp is var
-                ob->exp_type = VAR;
-                ob->u.var_ = readVar(str);
+            if(*tmp=='\0'){//when exp is var or bool
+                if(strncmp(str,"true",4)*strncmp(str,"false",5)==0){
+                    ob->exp_type = BOOL;
+                    ob->u.bool_ = readBool(str);
+                }else{
+                    ob->exp_type = VAR;
+                    ob->u.var_ = readVar(str);
+                }
             }else{
 
                 tmp = str;

@@ -1,7 +1,12 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "param.h"
 
 int cmpVar(Var *, Var *);
+Type *copyType(Type *);
+Env *copyEnv(Env *);
+Var *copyVar(Var *);
+void writeType(Type *);
 void error(char *);
 
 void ind(int d){
@@ -43,8 +48,50 @@ void writeRuleName(Cncl *cncl_ob){
     return;
 }
 
-Type *getType(Env *eps, Var *x){
-    if(eps==NULL)error("var is not found.");
-    if(cmpVar(eps->var_,x)==0)return eps->type_;
-    return getType(eps->prev,x);
+Env *getEnv(Env *gamma, Var *x){
+    if(gamma==NULL)error("var is not found.");
+    if(cmpVar(gamma->var_,x)==0)return gamma;
+    return getEnv(gamma->prev,x);
+}
+
+int typeIsDefined(Type *ob){
+    TypeType tmp = ob->type_type;
+    if(tmp==INTT||tmp==BOOLT) return 1;
+    else if(tmp==FUNT) return typeIsDefined(ob->u.funt_->type1_)*typeIsDefined(ob->u.funt_->type2_);
+    else if(tmp==LISTT) return typeIsDefined(ob->u.listt_->type_);
+    return 0;
+}
+
+Type *integrateType(Type *ob1, Type *ob2){
+    TypeType tmp1 = ob1->type_type;
+    TypeType tmp2 = ob2->type_type;
+    if(tmp1==TBD)return copyType(ob2);
+    if(tmp2==TBD)return copyType(ob1);
+    if(tmp1!=tmp2){
+        writeType(ob1);
+        writeType(ob2);
+        error("mismatch type in integration.");
+    }
+    Type *ob = (Type *)malloc(sizeof(Type));
+    ob->type_type = tmp1;
+    if(tmp1==FUNT){
+        ob->u.funt_ = (Funt *)malloc(sizeof(Funt));
+        ob->u.funt_->type1_ = integrateType(ob1->u.funt_->type1_,ob2->u.funt_->type1_);
+        ob->u.funt_->type2_ = integrateType(ob1->u.funt_->type2_,ob2->u.funt_->type2_);
+    }else if(tmp1==LISTT){
+        ob->u.listt_ = (Listt *)malloc(sizeof(Listt));
+        ob->u.listt_->type_ = integrateType(ob1->u.listt_->type_,ob2->u.listt_->type_);
+    }
+    return ob;
+}
+
+Env *integrateEnv(Env *ob1, Env *ob2){
+    if(ob1==NULL)return copyEnv(ob2);
+    if(ob2==NULL)return copyEnv(ob1);
+    if(cmpVar(ob1->var_,ob2->var_))error("env mismatch.");
+    Env *ob = (Env *)malloc(sizeof(Env));
+    ob->var_ = copyVar(ob1->var_);
+    ob->type_ = integrateType(ob1->type_,ob2->type_);
+    ob->prev = integrateEnv(ob1->prev,ob2->prev);
+    return ob;
 }
