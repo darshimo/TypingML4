@@ -1,7 +1,7 @@
 #include <string.h>
 #include "param.h"
 
-#define DEBUG
+//#define DEBUG
 
 int cmpFunt(Funt *, Funt *);
 int cmpListt(Listt *, Listt *);

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
 void debugCncl(Cncl *,int);
 #endif

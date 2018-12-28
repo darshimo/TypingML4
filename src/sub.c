@@ -32,7 +32,7 @@ void writeRuleName(Cncl *cncl_ob){
     RuleType tmp = cncl_ob->rule_type;
     if(tmp==T_INT)printf("T-Int");
     else if(tmp==T_BOOL)printf("T-Bool");
-    else if(tmp==T_IF)printf("T-IfF");
+    else if(tmp==T_IF)printf("T-If");
     else if(tmp==T_PLUS)printf("T-Plus");
     else if(tmp==T_MINUS)printf("T-Minus");
     else if(tmp==T_TIMES)printf("T-Times");

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define DEBUG
+//#define DEBUG
 
 void error(char *);
 Int *copyInt(Int *);
@@ -29,7 +29,7 @@ void writeFun(Fun *);
 void writeApp(App *);
 void writeLetRec(LetRec *);
 void writeExp(Exp *);
-void ind(int);
+void tree(int);
 #endif
 
 void derivation(Cncl *, int);
@@ -37,7 +37,7 @@ void derivation(Cncl *, int);
 
 void T_Int(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-Int: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");
@@ -60,7 +60,7 @@ void T_Int(Cncl *cncl_ob, int d){
 
 void T_Bool(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-Bool: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");
@@ -73,7 +73,6 @@ void T_Bool(Cncl *cncl_ob, int d){
 
     cncl_ob->asmp_ = NULL;
 
-    writeType(cncl_ob->type_);
     if(cncl_ob->type_->type_type==TBD){
         cncl_ob->type_->type_type = BOOLT;
     }else if(cncl_ob->type_->type_type!=BOOLT){
@@ -87,7 +86,7 @@ void T_Bool(Cncl *cncl_ob, int d){
 
 void T_Var(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-Var: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");
@@ -115,7 +114,7 @@ void T_Var(Cncl *cncl_ob, int d){
 
 void T_Op(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-Op: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");
@@ -177,7 +176,7 @@ void T_Op(Cncl *cncl_ob, int d){
 
 void T_If(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-If: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");
@@ -232,7 +231,7 @@ void T_If(Cncl *cncl_ob, int d){
 
 void T_Let(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-Let: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");
@@ -282,7 +281,7 @@ void T_Let(Cncl *cncl_ob, int d){
 
 void T_Fun(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-Fun: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");
@@ -337,7 +336,7 @@ void T_Fun(Cncl *cncl_ob, int d){
 
 void T_App(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-App: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");
@@ -388,7 +387,7 @@ void T_App(Cncl *cncl_ob, int d){
 
 void T_LetRec(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-LetRec: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");
@@ -453,7 +452,7 @@ void T_LetRec(Cncl *cncl_ob, int d){
 
 void T_Nil(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-Nil: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");
@@ -471,7 +470,7 @@ void T_Nil(Cncl *cncl_ob, int d){
 
 void T_Cons(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-Cons: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");
@@ -527,7 +526,7 @@ void T_Cons(Cncl *cncl_ob, int d){
 
 void T_Match(Cncl *cncl_ob, int d){
 #ifdef DEBUG
-    ind(d);
+    tree(d);
     printf("T-Match: ");
     writeEnv(cncl_ob->env_);
     printf(" |- ");

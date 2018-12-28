@@ -51,7 +51,7 @@ void writeEnv(Env *ob){
         printf(", ");
     }
     writeVar(ob->var_);
-    printf(" = ");
+    printf(" : ");
     writeType(ob->type_);
     return;
 }
