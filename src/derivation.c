@@ -17,6 +17,8 @@ Env *getEnv(Env *, Var *);
 Type *integrateType(Type *, Type *);
 Env *integrateEnv(Env *, Env *);
 int typeIsDefined(Type *);
+void freeType(Type *);
+void freeEnv(Env *);
 
 #ifdef DEBUG
 void writeInt(Int *);
@@ -102,8 +104,8 @@ void T_Var(Cncl *cncl_ob, int d){
     cncl_ob->asmp_ = NULL;
 
     Type *type_ob = integrateType(cncl_ob->type_,getEnv(gamma,x)->type_);
-    //freeType(cncl_ob->type_);
-    //freeType(getEnv(gamma,x)->type_);
+    freeType(cncl_ob->type_);
+    freeType(getEnv(gamma,x)->type_);
     getEnv(gamma,x)->type_ = copyType(type_ob);
     cncl_ob->type_ = type_ob;
 
@@ -166,7 +168,7 @@ void T_Op(Cncl *cncl_ob, int d){
     }
 
     Env *env_ob = integrateEnv(asmp_ob->cncl_->env_,asmp_ob->next->cncl_->env_);
-    //freeEnv(cncl_ob->env_);
+    freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
     //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Op");
@@ -214,13 +216,13 @@ void T_If(Cncl *cncl_ob, int d){
     cncl_ob->asmp_ = asmp_ob;
 
     Type *type_ob = integrateType(asmp_ob->next->cncl_->type_,asmp_ob->next->next->cncl_->type_);
-    //freeType(cncl_ob->type_);
+    freeType(cncl_ob->type_);
     cncl_ob->type_ = type_ob;
 
     Env *env_ob1 = integrateEnv(asmp_ob->cncl_->env_,asmp_ob->next->cncl_->env_);
     Env *env_ob2 = integrateEnv(env_ob1,asmp_ob->next->next->cncl_->env_);
-    //freeEnv(cncl_ob->env_);
-    //freeEnv(env_ob1);
+    freeEnv(cncl_ob->env_);
+    freeEnv(env_ob1);
     cncl_ob->env_ = env_ob2;
 
     //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_If");
@@ -267,11 +269,11 @@ void T_Let(Cncl *cncl_ob, int d){
     cncl_ob->asmp_ = asmp_ob;
 
     Type *type_ob = integrateType(cncl_ob->type_,asmp_ob->next->cncl_->type_);
-    //freeType(cncl_ob->type_);
+    freeType(cncl_ob->type_);
     cncl_ob->type_ = type_ob;
 
     Env *env_ob = integrateEnv(asmp_ob->cncl_->env_,asmp_ob->next->cncl_->env_->prev);
-    //freeEnv(cncl_ob->env_);
+    freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
     //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Let");
@@ -322,11 +324,11 @@ void T_Fun(Cncl *cncl_ob, int d){
     type_ob1->u.funt_->type1_ = copyType(asmp_ob->cncl_->env_->type_);
     type_ob1->u.funt_->type2_ = copyType(asmp_ob->cncl_->type_);
     Type *type_ob2 = integrateType(type_ob1,cncl_ob->type_);
-    //freeType(cncl_ob->type_);
-    //freeType(type_ob1);
+    freeType(cncl_ob->type_);
+    freeType(type_ob1);
     cncl_ob->type_ = type_ob2;
 
-    //freeEnv(cncl_ob->env_);
+    freeEnv(cncl_ob->env_);
     cncl_ob->env_ = copyEnv(asmp_ob->cncl_->env_->prev);
 
     //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Fun");
@@ -373,11 +375,11 @@ void T_App(Cncl *cncl_ob, int d){
     cncl_ob->asmp_ = asmp_ob;
 
     Type *type_ob = integrateType(cncl_ob->type_,asmp_ob->cncl_->type_->u.funt_->type2_);
-    //freeType(cncl_ob->type_);
+    freeType(cncl_ob->type_);
     cncl_ob->type_ = type_ob;
 
     Env *env_ob = integrateEnv(asmp_ob->cncl_->env_,asmp_ob->next->cncl_->env_);
-    //freeEnv(cncl_ob->env_);
+    freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
     //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_App");
@@ -436,11 +438,11 @@ void T_LetRec(Cncl *cncl_ob, int d){
     cncl_ob->asmp_ = asmp_ob;
 
     Type *type_ob = integrateType(cncl_ob->type_,asmp_ob->next->cncl_->type_);
-    //freeType(cncl_ob->type_);
+    freeType(cncl_ob->type_);
     cncl_ob->type_ = type_ob;
 
     Env *env_ob = integrateEnv(asmp_ob->cncl_->env_->prev->prev,asmp_ob->next->cncl_->env_->prev);
-    //freeEnv(cncl_ob->env_);
+    freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
     //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_LetRec");
@@ -509,14 +511,14 @@ void T_Cons(Cncl *cncl_ob, int d){
     cncl_ob->asmp_ = asmp_ob;
 
     Type *type_ob = integrateType(asmp_ob->cncl_->type_,asmp_ob->next->cncl_->type_->u.listt_->type_);
-    //freeType(cncl_ob->type_);
+    freeType(cncl_ob->type_);
     cncl_ob->type_ = (Type *)malloc(sizeof(Type));
     cncl_ob->type_->type_type = LISTT;
     cncl_ob->type_->u.listt_ = (Listt *)malloc(sizeof(Listt));
     cncl_ob->type_->u.listt_->type_ = type_ob;
 
     Env *env_ob = integrateEnv(asmp_ob->cncl_->env_,asmp_ob->next->cncl_->env_);
-    //freeEnv(cncl_ob->env_);
+    freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
     //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Cons");
@@ -578,13 +580,13 @@ void T_Match(Cncl *cncl_ob, int d){
     cncl_ob->asmp_ = asmp_ob;
 
     Type *type_ob = integrateType(cncl_ob->type_,asmp_ob->next->next->cncl_->type_);
-    //freeType(cncl_ob->type_);
+    freeType(cncl_ob->type_);
     cncl_ob->type_ = type_ob;
 
     Env *env_ob1 = integrateEnv(asmp_ob->cncl_->env_,asmp_ob->next->cncl_->env_);
     Env *env_ob2 = integrateEnv(env_ob1,asmp_ob->next->next->cncl_->env_->prev->prev);
-    //freeEnv(cncl_ob->env_);
-    //freeEnv(env_ob1);
+    freeEnv(cncl_ob->env_);
+    freeEnv(env_ob1);
     cncl_ob->env_ = env_ob2;
 
     //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Cons");

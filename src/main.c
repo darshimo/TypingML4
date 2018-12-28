@@ -10,10 +10,8 @@ void debugCncl(Cncl *,int);
 void error(char*);
 Cncl* readCncl(char*);
 void derivation(Cncl*, int);
-/*
 void freeCncl(Cncl *);
 void writeCncl(Cncl *, int);
-*/
 
 
 int main(int argc, char *argv[]){
@@ -45,18 +43,17 @@ int main(int argc, char *argv[]){
 #endif
 
 
-    /*
     writeCncl(cncl_ob,0);
 
 
 #ifdef DEBUG
+    printf("\n\n");
     printf("free start.\n");
 #endif
     freeCncl(cncl_ob);
 #ifdef DEBUG
     printf("free complete.\n\n");
 #endif
-*/
 
     return 0;
 }
