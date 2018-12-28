@@ -136,12 +136,15 @@ void T_Op(Cncl *cncl_ob, int d){
     derivation(asmp_ob->cncl_,d+1);
     asmp_ob->next = (Asmp *)malloc(sizeof(Asmp));
     asmp_ob->next->cncl_ = (Cncl *)malloc(sizeof(Cncl));
-    asmp_ob->next->cncl_->env_ = copyEnv(gamma);
+    asmp_ob->next->cncl_->env_ = copyEnv(asmp_ob->cncl_->env_);
     asmp_ob->next->cncl_->exp_ = copyExp(e2);
     asmp_ob->next->cncl_->type_ = (Type *)malloc(sizeof(Type));
     asmp_ob->next->cncl_->type_->type_type = INTT;
     derivation(asmp_ob->next->cncl_,d+1);
+    asmp_ob->cncl_->env_ = copyEnv(asmp_ob->next->cncl_->env_);
+    derivation(asmp_ob->cncl_,d+1);
     asmp_ob->next->next = NULL;
+
     cncl_ob->asmp_ = asmp_ob;
 
     if(cncl_ob->exp_->u.op_->op_type==LT){
@@ -207,10 +210,14 @@ void T_If(Cncl *cncl_ob, int d){
     derivation(asmp_ob->next->cncl_,d+1);
     asmp_ob->next->next = (Asmp *)malloc(sizeof(Asmp));
     asmp_ob->next->next->cncl_ = (Cncl *)malloc(sizeof(Cncl));
-    asmp_ob->next->next->cncl_->env_ = copyEnv(asmp_ob->cncl_->env_);
+    asmp_ob->next->next->cncl_->env_ = copyEnv(asmp_ob->next->cncl_->env_);
     asmp_ob->next->next->cncl_->exp_ = copyExp(e3);
     asmp_ob->next->next->cncl_->type_ = copyType(cncl_ob->type_);
     derivation(asmp_ob->next->next->cncl_,d+1);
+    asmp_ob->next->cncl_->env_ = copyEnv(asmp_ob->next->next->cncl_->env_);
+    derivation(asmp_ob->next->cncl_,d+1);
+    asmp_ob->cncl_->env_ = copyEnv(asmp_ob->cncl_->env_);
+    derivation(asmp_ob->cncl_,d+1);
     asmp_ob->next->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -249,21 +256,32 @@ void T_Let(Cncl *cncl_ob, int d){
 
     Asmp *asmp_ob = (Asmp *)malloc(sizeof(Asmp));
     asmp_ob->cncl_ = (Cncl *)malloc(sizeof(Cncl));
-    asmp_ob->cncl_->env_ = copyEnv(gamma);
     asmp_ob->cncl_->exp_ = copyExp(e1);
-    asmp_ob->cncl_->type_ = (Type *)malloc(sizeof(Type));
-    asmp_ob->cncl_->type_->type_type = TBD;
-    derivation(asmp_ob->cncl_,d+1);
     asmp_ob->next = (Asmp *)malloc(sizeof(Asmp));
     asmp_ob->next->cncl_ = (Cncl *)malloc(sizeof(Cncl));
     asmp_ob->next->cncl_->env_ = (Env *)malloc(sizeof(Env));
-    asmp_ob->next->cncl_->env_->prev = copyEnv(asmp_ob->cncl_->env_);
+    asmp_ob->next->cncl_->env_->prev = copyEnv(gamma);
     asmp_ob->next->cncl_->env_->var_ = copyVar(x);
-    asmp_ob->next->cncl_->env_->type_ = copyType(asmp_ob->cncl_->type_);
+    asmp_ob->next->cncl_->env_->type_ = (Type *)malloc(sizeof(Type));
+    asmp_ob->next->cncl_->env_->type_->type_type = TBD;
     asmp_ob->next->cncl_->exp_ = copyExp(e2);
-    asmp_ob->next->cncl_->type_ = (Type *)malloc(sizeof(Type));
-    asmp_ob->next->cncl_->type_->type_type = TBD;
+    asmp_ob->next->cncl_->type_ = copyType(cncl_ob->type_);
     derivation(asmp_ob->next->cncl_,d+1);
+
+    asmp_ob->cncl_->env_ = copyEnv(asmp_ob->next->cncl_->env_->prev);
+    asmp_ob->cncl_->type_ = copyType(asmp_ob->next->cncl_->env_->type_);
+    derivation(asmp_ob->cncl_,d+1);
+    for(int i=0;i<3;i++){
+        asmp_ob->next->cncl_->env_->prev = copyEnv(asmp_ob->cncl_->env_);
+        asmp_ob->next->cncl_->env_->type_ = copyType(asmp_ob->cncl_->type_);
+        derivation(asmp_ob->next->cncl_,d+1);
+        asmp_ob->cncl_->env_ = copyEnv(asmp_ob->next->cncl_->env_->prev);
+        asmp_ob->cncl_->type_ = copyType(asmp_ob->next->cncl_->env_->type_);
+        derivation(asmp_ob->cncl_,d+1);
+    }
+
+    asmp_ob->next->cncl_->env_->prev = copyEnv(asmp_ob->cncl_->env_);
+    asmp_ob->next->cncl_->env_->type_ = copyType(asmp_ob->cncl_->type_);
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -370,6 +388,21 @@ void T_App(Cncl *cncl_ob, int d){
     asmp_ob->cncl_->type_->u.funt_->type1_ = copyType(asmp_ob->next->cncl_->type_);
     asmp_ob->cncl_->type_->u.funt_->type2_ = copyType(cncl_ob->type_);
     derivation(asmp_ob->cncl_,d+1);
+//one more
+    for(int i=0;i<3;i++){
+        asmp_ob->next->cncl_->env_ = copyEnv(asmp_ob->cncl_->env_);
+        asmp_ob->next->cncl_->type_ = copyType(asmp_ob->cncl_->type_->u.funt_->type1_);
+        derivation(asmp_ob->next->cncl_,d+1);
+        asmp_ob->cncl_->env_ = copyEnv(asmp_ob->next->cncl_->env_);
+        asmp_ob->cncl_->type_->u.funt_->type1_ = copyType(asmp_ob->next->cncl_->type_);
+        derivation(asmp_ob->cncl_,d+1);
+    }
+    asmp_ob->next->cncl_->env_ = copyEnv(asmp_ob->cncl_->env_);
+    asmp_ob->next->cncl_->type_ = copyType(asmp_ob->cncl_->type_->u.funt_->type1_);
+
+    asmp_ob->cncl_->type_->u.funt_->type1_ = copyType(asmp_ob->next->cncl_->type_);
+    asmp_ob->cncl_->env_ = copyEnv(asmp_ob->next->cncl_->env_);
+    derivation(asmp_ob->cncl_,d+1);
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -433,6 +466,18 @@ void T_LetRec(Cncl *cncl_ob, int d){
     asmp_ob->cncl_->env_->type_ = copyType(asmp_ob->next->cncl_->env_->type_->u.funt_->type1_);
     asmp_ob->cncl_->type_ = copyType(asmp_ob->next->cncl_->env_->type_->u.funt_->type2_);
     derivation(asmp_ob->cncl_,d+1);
+    for(int i=0;i<3;i++){
+        asmp_ob->next->cncl_->env_->prev = copyEnv(asmp_ob->cncl_->env_->prev->prev);
+        asmp_ob->next->cncl_->env_->type_ = copyType(asmp_ob->cncl_->env_->prev->type_);
+        derivation(asmp_ob->next->cncl_,d+1);
+        asmp_ob->cncl_->env_->prev->prev = copyEnv(asmp_ob->next->cncl_->env_->prev);
+        asmp_ob->cncl_->env_->prev->type_ = copyType(asmp_ob->next->cncl_->env_->type_);
+        asmp_ob->cncl_->env_->type_ = copyType(asmp_ob->next->cncl_->env_->type_->u.funt_->type1_);
+        asmp_ob->cncl_->type_ = copyType(asmp_ob->next->cncl_->env_->type_->u.funt_->type2_);
+        derivation(asmp_ob->cncl_,d+1);
+    }
+    asmp_ob->next->cncl_->env_->prev = copyEnv(asmp_ob->cncl_->env_->prev->prev);
+    asmp_ob->next->cncl_->env_->type_ = copyType(asmp_ob->cncl_->env_->prev->type_);
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -498,14 +543,26 @@ void T_Cons(Cncl *cncl_ob, int d){
     asmp_ob->cncl_->env_ = copyEnv(gamma);
     asmp_ob->cncl_->exp_ = copyExp(e1);
     asmp_ob->cncl_->type_ = copyType(cncl_ob->type_->u.listt_->type_);
-    //list no ato no youso de type ga kimaru baai, sono type wo mou ichido mottekite derivation suru hitsuyou.
     derivation(asmp_ob->cncl_,d+1);
     asmp_ob->next = (Asmp *)malloc(sizeof(Asmp));
     asmp_ob->next->cncl_ = (Cncl *)malloc(sizeof(Cncl));
     asmp_ob->next->cncl_->env_ = copyEnv(asmp_ob->cncl_->env_);
     asmp_ob->next->cncl_->exp_ = copyExp(e2);
-    asmp_ob->next->cncl_->type_ = copyType(cncl_ob->type_);
+    asmp_ob->next->cncl_->type_ = (Type *)malloc(sizeof(Type));
+    asmp_ob->next->cncl_->type_->type_type = LISTT;
+    asmp_ob->next->cncl_->type_->u.listt_ = (Listt *)malloc(sizeof(Listt));
+    asmp_ob->next->cncl_->type_->u.listt_->type_ = copyType(asmp_ob->cncl_->type_);
     derivation(asmp_ob->next->cncl_,d+1);
+    for(int i=0;i<3;i++){
+        asmp_ob->cncl_->env_ = copyEnv(asmp_ob->next->cncl_->env_);
+        asmp_ob->cncl_->type_ = copyType(asmp_ob->next->cncl_->type_->u.listt_->type_);
+        derivation(asmp_ob->cncl_,d+1);
+        asmp_ob->next->cncl_->env_ = copyEnv(asmp_ob->cncl_->env_);
+        asmp_ob->next->cncl_->type_->u.listt_->type_ = copyType(asmp_ob->cncl_->type_);
+        derivation(asmp_ob->next->cncl_,d+1);
+    }
+    asmp_ob->cncl_->env_ = copyEnv(asmp_ob->next->cncl_->env_);
+    asmp_ob->cncl_->type_ = copyType(asmp_ob->next->cncl_->type_->u.listt_->type_);
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -548,6 +605,11 @@ void T_Match(Cncl *cncl_ob, int d){
     Asmp *asmp_ob = (Asmp *)malloc(sizeof(Asmp));
     asmp_ob->cncl_ = (Cncl *)malloc(sizeof(Cncl));
     asmp_ob->cncl_->exp_ = copyExp(e1);
+    asmp_ob->cncl_->type_ = (Type *)malloc(sizeof(Type));
+    asmp_ob->cncl_->type_->type_type = LISTT;
+    asmp_ob->cncl_->type_->u.listt_ = (Listt *)malloc(sizeof(Listt));
+    asmp_ob->cncl_->type_->u.listt_->type_ = (Type *)malloc(sizeof(Type));
+    asmp_ob->cncl_->type_->u.listt_->type_->type_type = TBD;
     //set asmp 2
     asmp_ob->next = (Asmp *)malloc(sizeof(Asmp));
     asmp_ob->next->cncl_ = (Cncl *)malloc(sizeof(Cncl));
@@ -560,21 +622,26 @@ void T_Match(Cncl *cncl_ob, int d){
     asmp_ob->next->next->cncl_->env_ = (Env *)malloc(sizeof(Env));
     asmp_ob->next->next->cncl_->env_->prev = (Env *)malloc(sizeof(Env));
     asmp_ob->next->next->cncl_->env_->prev->var_ = copyVar(x);
-    asmp_ob->next->next->cncl_->env_->prev->type_ = (Type *)malloc(sizeof(Type));
-    asmp_ob->next->next->cncl_->env_->prev->type_->type_type = TBD;
+    //asmp_ob->next->next->cncl_->env_->prev->type_ = (Type *)malloc(sizeof(Type));
+    //asmp_ob->next->next->cncl_->env_->prev->type_->type_type = TBD;
     asmp_ob->next->next->cncl_->env_->var_ = copyVar(y);
-    asmp_ob->next->next->cncl_->env_->type_ = (Type *)malloc(sizeof(Type));
-    asmp_ob->next->next->cncl_->env_->type_->type_type = TBD;
+    //asmp_ob->next->next->cncl_->env_->type_ = (Type *)malloc(sizeof(Type));
+    //asmp_ob->next->next->cncl_->env_->type_->type_type = TBD;
     asmp_ob->next->next->cncl_->exp_ = copyExp(e3);
     //derivation
-    derivation(asmp_ob->next->cncl_,d+1);
-    asmp_ob->next->next->cncl_->type_ = integrateType(asmp_ob->next->cncl_->type_,cncl_ob->type_);
-    asmp_ob->next->next->cncl_->env_->prev->prev = copyEnv(asmp_ob->next->cncl_->env_);
-    derivation(asmp_ob->next->next->cncl_,d+1);
-    //x ka y ka docchi kara mottekuru beki ka
-    asmp_ob->cncl_->type_ = copyType(asmp_ob->next->next->cncl_->env_->type_);
-    asmp_ob->cncl_->env_ = copyEnv(asmp_ob->next->next->cncl_->env_->prev->prev);
-    derivation(asmp_ob->cncl_,d+1);
+    for(int i=0;i<3;i++){
+        derivation(asmp_ob->next->cncl_,d+1);
+        asmp_ob->next->next->cncl_->type_ = copyType(asmp_ob->next->cncl_->type_);
+        asmp_ob->next->next->cncl_->env_->prev->prev = copyEnv(asmp_ob->next->cncl_->env_);
+        asmp_ob->next->next->cncl_->env_->prev->type_ = copyType(asmp_ob->cncl_->type_->u.listt_->type_);
+        asmp_ob->next->next->cncl_->env_->type_ = copyType(asmp_ob->cncl_->type_);
+        derivation(asmp_ob->next->next->cncl_,d+1);
+        asmp_ob->cncl_->type_ = copyType(asmp_ob->next->next->cncl_->env_->type_);
+        asmp_ob->cncl_->env_ = copyEnv(asmp_ob->next->next->cncl_->env_->prev->prev);
+        derivation(asmp_ob->cncl_,d+1);
+        asmp_ob->next->cncl_->env_ = copyEnv(asmp_ob->cncl_->env_);
+        asmp_ob->next->cncl_->type_ = copyType(asmp_ob->next->next->cncl_->type_);
+    }
     asmp_ob->next->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
