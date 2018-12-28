@@ -54,14 +54,6 @@ Env *getEnv(Env *gamma, Var *x){
     return getEnv(gamma->prev,x);
 }
 
-int typeIsDefined(Type *ob){
-    TypeType tmp = ob->type_type;
-    if(tmp==INTT||tmp==BOOLT) return 1;
-    else if(tmp==FUNT) return typeIsDefined(ob->u.funt_->type1_)*typeIsDefined(ob->u.funt_->type2_);
-    else if(tmp==LISTT) return typeIsDefined(ob->u.listt_->type_);
-    return 0;
-}
-
 Type *integrateType(Type *ob1, Type *ob2){
     TypeType tmp1 = ob1->type_type;
     TypeType tmp2 = ob2->type_type;

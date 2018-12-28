@@ -16,7 +16,6 @@ int cmpVar(Var *, Var *);
 Env *getEnv(Env *, Var *);
 Type *integrateType(Type *, Type *);
 Env *integrateEnv(Env *, Env *);
-int typeIsDefined(Type *);
 void freeType(Type *);
 void freeEnv(Env *);
 
@@ -54,7 +53,6 @@ void T_Int(Cncl *cncl_ob, int d){
         error("error1");
     }
 
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Int");
     return;
 }
 
@@ -79,7 +77,6 @@ void T_Bool(Cncl *cncl_ob, int d){
         error("error2");
     }
 
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Bool");
     return;
 }
 
@@ -108,7 +105,6 @@ void T_Var(Cncl *cncl_ob, int d){
     getEnv(gamma,x)->type_ = copyType(type_ob);
     cncl_ob->type_ = type_ob;
 
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Var");
     return;
 }
 
@@ -173,7 +169,6 @@ void T_Op(Cncl *cncl_ob, int d){
     freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Op");
     return;
 }
 
@@ -231,7 +226,6 @@ void T_If(Cncl *cncl_ob, int d){
     freeEnv(env_ob1);
     cncl_ob->env_ = env_ob2;
 
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_If");
 
     return;
 }
@@ -293,7 +287,6 @@ void T_Let(Cncl *cncl_ob, int d){
     freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Let");
     return;
 }
 
@@ -348,7 +341,6 @@ void T_Fun(Cncl *cncl_ob, int d){
     freeEnv(cncl_ob->env_);
     cncl_ob->env_ = copyEnv(asmp_ob->cncl_->env_->prev);
 
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Fun");
     return;
 }
 
@@ -414,7 +406,6 @@ void T_App(Cncl *cncl_ob, int d){
     freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_App");
     return;
 }
 
@@ -489,7 +480,6 @@ void T_LetRec(Cncl *cncl_ob, int d){
     freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_LetRec");
     return;
 }
 
@@ -509,7 +499,6 @@ void T_Nil(Cncl *cncl_ob, int d){
     cncl_ob->rule_type = T_NIL;
     cncl_ob->asmp_ = NULL;
     if(cncl_ob->type_->type_type!=LISTT)error("Nil is not list.");
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Nil");
     return;
 }
 
@@ -577,7 +566,6 @@ void T_Cons(Cncl *cncl_ob, int d){
     freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Cons");
     return;
 }
 
@@ -655,7 +643,6 @@ void T_Match(Cncl *cncl_ob, int d){
     freeEnv(env_ob1);
     cncl_ob->env_ = env_ob2;
 
-    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Cons");
     return;
 }
 
