@@ -12,6 +12,7 @@ Cncl* readCncl(char*);
 void derivation(Cncl*, int);
 void freeCncl(Cncl *);
 void writeCncl(Cncl *, int);
+void replaceAll(Cncl *);
 
 
 int main(int argc, char *argv[]){
@@ -51,6 +52,9 @@ int main(int argc, char *argv[]){
 #ifdef DEBUG
     printf("derivation complete.\n\n");
 #endif
+
+
+    replaceAll(cncl_ob);
 
 
     writeCncl(cncl_ob,0);

@@ -97,3 +97,30 @@ Env *integrateEnv(Env *ob1, Env *ob2){
     ob->prev = integrateEnv(ob1->prev,ob2->prev);
     return ob;
 }
+
+void replaceTBD(Type *ob){
+    TypeType tmp = ob->type_type;
+    if(tmp==TBD)ob->type_type=INTT;
+    else if(tmp==FUNT){
+        replaceTBD(ob->u.funt_->type1_);
+        replaceTBD(ob->u.funt_->type2_);
+    }else if(tmp==LISTT){
+        replaceTBD(ob->u.listt_->type_);
+    }
+    return;
+}
+
+void replaceAll(Cncl *ob){
+    Asmp *tmp1 = ob->asmp_;
+    while(tmp1!=NULL){
+        replaceAll(tmp1->cncl_);
+        tmp1 = tmp1->next;
+    }
+    Env *tmp2 = ob->env_;
+    while(tmp2!=NULL){
+        replaceTBD(tmp2->type_);
+        tmp2 = tmp2->prev;
+    }
+    replaceTBD(ob->type_);
+    return;
+}
