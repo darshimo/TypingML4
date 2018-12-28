@@ -69,7 +69,9 @@ Type *integrateType(Type *ob1, Type *ob2){
     if(tmp2==TBD)return copyType(ob1);
     if(tmp1!=tmp2){
         writeType(ob1);
+        printf("\n");
         writeType(ob2);
+        printf("\n");
         error("mismatch type in integration.");
     }
     Type *ob = (Type *)malloc(sizeof(Type));

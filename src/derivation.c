@@ -52,7 +52,7 @@ void T_Int(Cncl *cncl_ob, int d){
         error("error1");
     }
 
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Int");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Int");
     return;
 }
 
@@ -78,7 +78,7 @@ void T_Bool(Cncl *cncl_ob, int d){
         error("error2");
     }
 
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Bool");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Bool");
     return;
 }
 
@@ -107,7 +107,7 @@ void T_Var(Cncl *cncl_ob, int d){
     getEnv(gamma,x)->type_ = copyType(type_ob);
     cncl_ob->type_ = type_ob;
 
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Var");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Var");
     return;
 }
 
@@ -169,7 +169,7 @@ void T_Op(Cncl *cncl_ob, int d){
     //freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Op");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Op");
     return;
 }
 
@@ -223,7 +223,7 @@ void T_If(Cncl *cncl_ob, int d){
     //freeEnv(env_ob1);
     cncl_ob->env_ = env_ob2;
 
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_If");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_If");
 
     return;
 }
@@ -274,7 +274,7 @@ void T_Let(Cncl *cncl_ob, int d){
     //freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Let");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Let");
     return;
 }
 
@@ -329,7 +329,7 @@ void T_Fun(Cncl *cncl_ob, int d){
     //freeEnv(cncl_ob->env_);
     cncl_ob->env_ = copyEnv(asmp_ob->cncl_->env_->prev);
 
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Fun");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Fun");
     return;
 }
 
@@ -380,7 +380,7 @@ void T_App(Cncl *cncl_ob, int d){
     //freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_App");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_App");
     return;
 }
 
@@ -443,7 +443,7 @@ void T_LetRec(Cncl *cncl_ob, int d){
     //freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_LetRec");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_LetRec");
     return;
 }
 
@@ -463,7 +463,7 @@ void T_Nil(Cncl *cncl_ob, int d){
     cncl_ob->rule_type = T_NIL;
     cncl_ob->asmp_ = NULL;
     if(cncl_ob->type_->type_type!=LISTT)error("Nil is not list.");
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Nil");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Nil");
     return;
 }
 
@@ -479,7 +479,14 @@ void T_Cons(Cncl *cncl_ob, int d){
     printf("\n");
 #endif
     cncl_ob->rule_type = T_CONS;
-    if(cncl_ob->type_->type_type!=LISTT)error("Cons is not list.");
+    if(cncl_ob->type_->type_type==TBD){
+        cncl_ob->type_ = (Type *)malloc(sizeof(Type));
+        cncl_ob->type_->type_type = LISTT;
+        cncl_ob->type_->u.listt_ = (Listt *)malloc(sizeof(Listt));
+        cncl_ob->type_->u.listt_->type_ = (Type *)malloc(sizeof(Type));
+        cncl_ob->type_->u.listt_->type_->type_type = TBD;
+    }
+    else if(cncl_ob->type_->type_type!=LISTT)error("Cons is not list.");
 
     Env *gamma = cncl_ob->env_;
     Exp *e1 = cncl_ob->exp_->u.cons_->exp1_;
@@ -512,7 +519,7 @@ void T_Cons(Cncl *cncl_ob, int d){
     //freeEnv(cncl_ob->env_);
     cncl_ob->env_ = env_ob;
 
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Cons");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Cons");
     return;
 }
 
@@ -563,7 +570,8 @@ void T_Match(Cncl *cncl_ob, int d){
     asmp_ob->next->next->cncl_->type_ = integrateType(asmp_ob->next->cncl_->type_,cncl_ob->type_);
     asmp_ob->next->next->cncl_->env_->prev->prev = copyEnv(asmp_ob->next->cncl_->env_);
     derivation(asmp_ob->next->next->cncl_,d+1);
-    asmp_ob->cncl_->type_ = copyType(asmp_ob->next->next->cncl_->env_->prev->type_);
+    //x ka y ka docchi kara mottekuru beki ka
+    asmp_ob->cncl_->type_ = copyType(asmp_ob->next->next->cncl_->env_->type_);
     asmp_ob->cncl_->env_ = copyEnv(asmp_ob->next->next->cncl_->env_->prev->prev);
     derivation(asmp_ob->cncl_,d+1);
     asmp_ob->next->next->next = NULL;
@@ -579,7 +587,7 @@ void T_Match(Cncl *cncl_ob, int d){
     //freeEnv(env_ob1);
     cncl_ob->env_ = env_ob2;
 
-    if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Cons");
+    //if(typeIsDefined(cncl_ob->type_)==0)error("error in T_Cons");
     return;
 }
 
