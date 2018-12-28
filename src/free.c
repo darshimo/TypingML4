@@ -1,6 +1,7 @@
 #include "param.h"
 #include <stdlib.h>
 
+/*
 //#define DEBUG
 #ifdef DEBUG
 #include <stdio.h>
@@ -218,3 +219,4 @@ void freeCncl(Cncl *ob){
     free(ob);
     return;
 }
+*/

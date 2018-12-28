@@ -4,6 +4,7 @@
 void debugFunt(Funt *, int);
 void debugListt(Listt *, int);
 void debugEnv(Env *, int);
+void debugBox(Box *, int);
 void debugType(Type *, int);
 void debugInt(Int *, int);
 void debugBool(Bool *, int);
@@ -24,15 +25,15 @@ void tree(int);
 void debugFunt(Funt *ob, int d){
     tree(d);
     printf("funt\n");
-    debugType(ob->type1_,d+1);
-    debugType(ob->type2_,d+1);
+    debugBox(ob->box1_,d+1);
+    debugBox(ob->box2_,d+1);
     return;
 }
 
 void debugListt(Listt *ob, int d){
     tree(d);
     printf("listt\n");
-    debugType(ob->type_,d+1);
+    debugBox(ob->box_,d+1);
     return;
 }
 
@@ -44,9 +45,18 @@ void debugEnv(Env *ob, int d){
     }
     debugEnv(ob->prev,d);
     debugVar(ob->var_,d+1);
-    debugType(ob->type_,d+1);
+    debugBox(ob->box_,d+1);
     return;
-};
+}
+
+void debugBox(Box *ob, int d){
+    if(ob->box_type==ROOT){
+        debugType(ob->u.type_,d);
+    }else{
+        debugBox(ob->u.prev,d);
+    }
+    return;
+}
 
 void debugType(Type *ob, int d){
     if(ob->type_type==INTT){
@@ -196,6 +206,6 @@ void debugCncl(Cncl *ob,int d){
     printf("cncl\n");
     debugEnv(ob->env_,d+1);
     debugExp(ob->exp_,d+1);
-    debugType(ob->type_,d+1);
+    debugBox(ob->box_,d+1);
     return;
 }

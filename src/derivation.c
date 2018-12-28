@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-//#define DEBUG
+/*
+#define DEBUG
 
 void error(char *);
 Int *copyInt(Int *);
@@ -662,3 +663,4 @@ void derivation(Cncl *cncl_ob, int d){
     else T_Match(cncl_ob,d);
     return;
 }
+*/

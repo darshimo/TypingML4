@@ -24,6 +24,11 @@ typedef enum{ //type type
     LISTT
 }TypeType;
 
+typedef enum{
+    ROOT,
+    NODE
+}BoxType;
+
 typedef enum{ // exp type
     INT,
     BOOL,
@@ -52,6 +57,7 @@ struct Listt_;
 
 struct Env_;
 
+struct Box_;
 struct Type_;
 
 struct Int_;
@@ -74,19 +80,27 @@ struct Cncl_;
 
 
 typedef struct Funt_{
-    struct Type_ *type1_;
-    struct Type_ *type2_;
+    struct Box_ *box1_;
+    struct Box_ *box2_;
 }Funt;
 
 typedef struct Listt_{
-    struct Type_ *type_;
+    struct Box_ *box_;
 }Listt;
 
 typedef struct Env_{
     struct Var_ *var_;
-    struct Type_ *type_;
+    struct Box_ *box_;
     struct Env_ *prev;
 }Env;
+
+typedef struct Box_{
+    BoxType box_type;
+    union{
+        struct Type_ *type_;
+        struct Box_ *prev;
+    }u;
+}Box;
 
 typedef struct Type_{
     TypeType type_type;
@@ -184,5 +198,5 @@ typedef struct Cncl_{
     struct Asmp_ *asmp_;
     struct Env_ *env_;
     struct Exp_ *exp_;
-    struct Type_ *type_;
+    struct Box_ *box_;
 }Cncl;

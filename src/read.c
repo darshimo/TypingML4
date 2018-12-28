@@ -3,7 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 
-//#define DEBUG
+#define DEBUG
 
 #ifdef DEBUG
 #include <stdio.h>
@@ -16,6 +16,7 @@ void error(char *);
 Funt *readFunt(char *, char *);
 Listt *readListt(char *);
 Env *readEnv(char *);
+Box *readBox(char *);
 Type *readType(char *);
 Int *readInt(char *);
 Bool *readBool(char *);
@@ -37,8 +38,8 @@ Funt *readFunt(char *str1, char *str2){
     printf("funtt : %s -> %s\n",str1,str2);
 #endif
     Funt *ob = (Funt *)malloc(sizeof(Funt));
-    ob->type1_ = readType(str1);
-    ob->type2_ = readType(str2);
+    ob->box1_ = readBox(str1);
+    ob->box2_ = readBox(str2);
     return ob;
 }
 
@@ -56,7 +57,7 @@ Listt *readListt(char *str){
     }
     if(strncmp(tmp2,"list",4)==0){
         *tmp2 = '\0';
-        ob->type_ = readType(str);
+        ob->box_ = readBox(str);
     }else{
         error("invalid list-type.");
     }
@@ -92,12 +93,20 @@ Env *readEnv(char *str){
 #endif
 
     ob->var_ = readVar(str1);
-    ob->type_ = readType(str2);
+    ob->box_ = readBox(str2);
     ob->prev = env_tmp;
 
     return ob;
 }
 
+Box *readBox(char *str){
+    Box *ob = (Box *)malloc(sizeof(Box));
+
+    ob->box_type = ROOT;
+    ob->u.type_ = readType(str);
+
+    return ob;
+}
 
 Type *readType(char* str){
     char *tmp = str;
@@ -737,7 +746,7 @@ Cncl *readCncl(char* str){
 
     ob->env_ = readEnv(str1);
     ob->exp_ = readExp(str2);
-    ob->type_ = readType(str3);
+    ob->box_ = readBox(str3);
 
     return ob;
 }

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
 //#define DEBUG
 #ifdef DEBUG
 #include <stdio.h>
@@ -205,3 +206,4 @@ Exp *copyExp(Exp *sample){
     else if(ob->exp_type==MATCH)ob->u.match_ = copyMatch(sample->u.match_);
     return ob;
 }
+*/

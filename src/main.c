@@ -2,17 +2,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
 void debugCncl(Cncl *,int);
 #endif
 
 void error(char*);
 Cncl* readCncl(char*);
+/*
 void derivation(Cncl*, int);
 void freeCncl(Cncl *);
 void writeCncl(Cncl *, int);
 void replaceAll(Cncl *);
+*/
 
 
 int main(int argc, char *argv[]){
@@ -27,6 +29,11 @@ int main(int argc, char *argv[]){
         exit(EXIT_FAILURE);
     }
     fgets(str,500,fp);
+
+
+#ifdef DEBUG
+    printf("%s\n\n",str);
+#endif
 
 
 #ifdef DEBUG
@@ -45,6 +52,7 @@ int main(int argc, char *argv[]){
 #endif
 
 
+    /*
 #ifdef DEBUG
     printf("derivation start.\n");
 #endif
@@ -54,7 +62,7 @@ int main(int argc, char *argv[]){
 #endif
 
 
-    replaceAll(cncl_ob);
+    //replaceAll(cncl_ob);
 
 
     writeCncl(cncl_ob,0);
@@ -64,10 +72,11 @@ int main(int argc, char *argv[]){
     printf("\n\n");
     printf("free start.\n");
 #endif
-    freeCncl(cncl_ob);
+    //freeCncl(cncl_ob);
 #ifdef DEBUG
     printf("free complete.\n\n");
 #endif
+*/
 
     return 0;
 }

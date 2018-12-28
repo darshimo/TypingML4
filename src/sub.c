@@ -48,6 +48,7 @@ void writeRuleName(Cncl *cncl_ob){
     return;
 }
 
+/*
 Env *getEnv(Env *gamma, Var *x){
     if(gamma==NULL)error("var is not found.");
     if(cmpVar(gamma->var_,x)==0)return gamma;
@@ -116,3 +117,4 @@ void replaceAll(Cncl *ob){
     replaceTBD(ob->type_);
     return;
 }
+*/

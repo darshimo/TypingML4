@@ -1,6 +1,7 @@
 #include <string.h>
 #include "param.h"
 
+/*
 //#define DEBUG
 
 int cmpFunt(Funt *, Funt *);
@@ -263,3 +264,4 @@ int cmpExp(Exp *ob1, Exp *ob2){
     if(ob1->exp_type==MATCH)cmpMatch(ob1->u.match_,ob2->u.match_);
     return 0;
 }
+*/

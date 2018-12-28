@@ -1,6 +1,7 @@
 #include "param.h"
 #include <stdio.h>
 
+/*
 void writeFunt(Funt *);
 void writeListt(Listt *);
 void writeEnv(Env *);
@@ -271,3 +272,4 @@ void writeCncl(Cncl *ob, int d){
     printf("}");
     return;
 }
+*/
