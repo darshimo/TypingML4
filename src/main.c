@@ -2,17 +2,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define DEBUG
+//#define DEBUG
 #ifdef DEBUG
 void debugCncl(Cncl *,int);
 #endif
 
 void error(char*);
 Cncl* readCncl(char*);
-/*
 void derivation(Cncl*, int);
-void freeCncl(Cncl *);
 void writeCncl(Cncl *, int);
+/*
+void freeCncl(Cncl *);
 void replaceAll(Cncl *);
 */
 
@@ -52,7 +52,6 @@ int main(int argc, char *argv[]){
 #endif
 
 
-    /*
 #ifdef DEBUG
     printf("derivation start.\n");
 #endif
@@ -68,6 +67,7 @@ int main(int argc, char *argv[]){
     writeCncl(cncl_ob,0);
 
 
+    /*
 #ifdef DEBUG
     printf("\n\n");
     printf("free start.\n");

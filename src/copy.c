@@ -2,16 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
-//#define DEBUG
+#define DEBUG
 #ifdef DEBUG
 #include <stdio.h>
 #endif
 
+/*
 Funt *copyFunt(Funt *);
 Listt *copyListt(Listt *);
 Env *copyEnv(Env *);
 Type *copyType(Type *);
+*/
 Int *copyInt(Int *);
 Bool *copyBool(Bool *);
 Var *copyVar(Var *);
@@ -26,6 +27,7 @@ Match *copyMatch(Match *);
 Exp *copyExp(Exp *);
 
 
+/*
 Funt *copyFunt(Funt *sample){
 #ifdef DEBUG
     printf("copyFunt start\n");
@@ -70,6 +72,7 @@ Type *copyType(Type *sample){
     }
     return ob;
 }
+*/
 
 Int *copyInt(Int *sample){
 #ifdef DEBUG
@@ -206,4 +209,3 @@ Exp *copyExp(Exp *sample){
     else if(ob->exp_type==MATCH)ob->u.match_ = copyMatch(sample->u.match_);
     return ob;
 }
-*/

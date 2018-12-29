@@ -79,6 +79,10 @@ struct Asmp_;
 struct Cncl_;
 
 
+typedef struct Tbd_{
+    int n;
+}Tbd;
+
 typedef struct Funt_{
     struct Box_ *box1_;
     struct Box_ *box2_;
@@ -105,6 +109,7 @@ typedef struct Box_{
 typedef struct Type_{
     TypeType type_type;
     union{
+        struct Tbd_ *tbd_;
         struct Funt_ *funt_;
         struct Listt_ *listt_;
     }u;

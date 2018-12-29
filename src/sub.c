@@ -2,12 +2,19 @@
 #include <stdlib.h>
 #include "param.h"
 
+//#define DEBUG
+
 int cmpVar(Var *, Var *);
 Type *copyType(Type *);
 Env *copyEnv(Env *);
 Var *copyVar(Var *);
-void writeType(Type *);
+void writeBox(Box *);
 void error(char *);
+
+int kdkd(){
+    static int n = 1;
+    return n++;
+}
 
 void ind(int d){
     int i;
@@ -48,49 +55,67 @@ void writeRuleName(Cncl *cncl_ob){
     return;
 }
 
-/*
-Env *getEnv(Env *gamma, Var *x){
-    if(gamma==NULL)error("var is not found.");
-    if(cmpVar(gamma->var_,x)==0)return gamma;
-    return getEnv(gamma->prev,x);
+Box *getRootBox(Box *ob){
+    if(ob->box_type==ROOT)return ob;
+    return getRootBox(ob->u.prev);
 }
 
-Type *integrateType(Type *ob1, Type *ob2){
-    TypeType tmp1 = ob1->type_type;
-    TypeType tmp2 = ob2->type_type;
-    if(tmp1==TBD)return copyType(ob2);
-    if(tmp2==TBD)return copyType(ob1);
-    if(tmp1!=tmp2){
-        writeType(ob1);
+Box *getEnvBox(Env *gamma, Var *x){
+    if(gamma==NULL)error("var is not found.");
+    if(cmpVar(gamma->var_,x)==0)return gamma->box_;
+    return getEnvBox(gamma->prev,x);
+}
+
+void integrateBox(Box *ob1, Box *ob2){
+    ob1 = getRootBox(ob1);
+    ob2 = getRootBox(ob2);
+#ifdef DEBUG
+    printf("integrate: ");
+    writeBox(ob1);
+    printf(" : ");
+    writeBox(ob2);
+    printf(" :\n");
+#endif
+    if(ob1==ob2){
+#ifdef DEBUG
+        printf("same pointer\n");
+#endif
+        return;
+    }
+    TypeType tmp1 = ob1->u.type_->type_type;
+    TypeType tmp2 = ob2->u.type_->type_type;
+    if(tmp1==TBD){
+        free(ob1->u.type_->u.tbd_);
+        free(ob1->u.type_);
+        ob1->box_type = NODE;
+        ob1->u.prev = ob2;
+        return;
+    }else if(tmp2==TBD){
+        free(ob2->u.type_->u.tbd_);
+        free(ob2->u.type_);
+        ob2->box_type = NODE;
+        ob2->u.prev = ob1;
+        return;
+    }else if(tmp1!=tmp2){
+        writeBox(ob1);
         printf("\n");
-        writeType(ob2);
+        writeBox(ob2);
         printf("\n");
         error("mismatch type in integration.");
-    }
-    Type *ob = (Type *)malloc(sizeof(Type));
-    ob->type_type = tmp1;
-    if(tmp1==FUNT){
-        ob->u.funt_ = (Funt *)malloc(sizeof(Funt));
-        ob->u.funt_->type1_ = integrateType(ob1->u.funt_->type1_,ob2->u.funt_->type1_);
-        ob->u.funt_->type2_ = integrateType(ob1->u.funt_->type2_,ob2->u.funt_->type2_);
+    }else if(tmp1==FUNT){
+        integrateBox(ob1->u.type_->u.funt_->box1_,ob2->u.type_->u.funt_->box1_);
+        integrateBox(ob1->u.type_->u.funt_->box2_,ob2->u.type_->u.funt_->box2_);
     }else if(tmp1==LISTT){
-        ob->u.listt_ = (Listt *)malloc(sizeof(Listt));
-        ob->u.listt_->type_ = integrateType(ob1->u.listt_->type_,ob2->u.listt_->type_);
+        integrateBox(ob1->u.type_->u.listt_->box_,ob2->u.type_->u.listt_->box_);
+    }else{
+        free(ob1->u.type_);
+        ob1->box_type = NODE;
+        ob1->u.prev = ob2;
     }
-    return ob;
+    return;
 }
 
-Env *integrateEnv(Env *ob1, Env *ob2){
-    if(ob1==NULL)return copyEnv(ob2);
-    if(ob2==NULL)return copyEnv(ob1);
-    if(cmpVar(ob1->var_,ob2->var_))error("env mismatch.");
-    Env *ob = (Env *)malloc(sizeof(Env));
-    ob->var_ = copyVar(ob1->var_);
-    ob->type_ = integrateType(ob1->type_,ob2->type_);
-    ob->prev = integrateEnv(ob1->prev,ob2->prev);
-    return ob;
-}
-
+/*
 void replaceTBD(Type *ob){
     TypeType tmp = ob->type_type;
     if(tmp==TBD)ob->type_type=INTT;

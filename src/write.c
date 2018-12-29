@@ -1,10 +1,10 @@
 #include "param.h"
 #include <stdio.h>
 
-/*
 void writeFunt(Funt *);
 void writeListt(Listt *);
 void writeEnv(Env *);
+void writeBox(Box *);
 void writeType(Type *);
 void writeInt(Int *);
 void writeBool(Bool *);
@@ -24,22 +24,28 @@ void writeCncl(Cncl *, int);
 void ind(int);
 void writeRuleName(Cncl *);
 void error(char *);
+Box *getRootBox(Box *);
 
+
+void writeTbd(Tbd *ob){
+    printf("%%%d",ob->n);
+    return;
+}
 
 void writeFunt(Funt *ob){
-    char paren = (ob->type1_->type_type==FUNT);
+    char paren = (getRootBox(ob->box1_)->u.type_->type_type==FUNT);
     if(paren)printf("(");
-    writeType(ob->type1_);
+    writeBox(ob->box1_);
     if(paren)printf(")");
     printf(" -> ");
-    writeType(ob->type2_);
+    writeBox(ob->box2_);
     return;
 }
 
 void writeListt(Listt *ob){
-    char paren = (ob->type_->type_type==FUNT);
+    char paren = (getRootBox(ob->box_)->u.type_->type_type==FUNT);
     if(paren)printf("(");
-    writeType(ob->type_);
+    writeBox(ob->box_);
     if(paren)printf(")");
     printf(" list");
     return;
@@ -53,7 +59,13 @@ void writeEnv(Env *ob){
     }
     writeVar(ob->var_);
     printf(" : ");
-    writeType(ob->type_);
+    writeBox(ob->box_);
+    return;
+}
+
+void writeBox(Box *ob){
+    if(ob->box_type==ROOT) writeType(ob->u.type_);
+    else writeBox(ob->u.prev);
     return;
 }
 
@@ -68,7 +80,7 @@ void writeType(Type *ob){
         writeListt(ob->u.listt_);
     }else{
         //error("type is not defined.");
-        printf("TBD");
+        writeTbd(ob->u.tbd_);
     }
     return;
 }
@@ -262,7 +274,7 @@ void writeCncl(Cncl *ob, int d){
     printf("|- ");
     writeExp(ob->exp_);
     printf(" : ");
-    writeType(ob->type_);
+    writeBox(ob->box_);
 
     printf(" by ");
     writeRuleName(ob);
@@ -272,4 +284,3 @@ void writeCncl(Cncl *ob, int d){
     printf("}");
     return;
 }
-*/

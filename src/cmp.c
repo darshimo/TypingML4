@@ -1,16 +1,16 @@
 #include <string.h>
 #include "param.h"
 
-/*
 //#define DEBUG
 
+int cmpVar(Var *,Var *);
+/*
 int cmpFunt(Funt *, Funt *);
 int cmpListt(Listt *, Listt *);
 int cmpEnv(Env *,Env *);
 int cmpType(Type *,Type *);
 int cmpInt(Int *,Int *);
 int cmpBool(Bool *,Bool *);
-int cmpVar(Var *,Var *);
 int cmpOp(Op *,Op *);
 int cmpIf(If *,If *);
 int cmpLet(Let *,Let *);
@@ -20,6 +20,7 @@ int cmpLetRec(LetRec *,LetRec *);
 int cmpCons(Cons *, Cons *);
 int cmpMatch(Match *, Match *);
 int cmpExp(Exp *,Exp *);
+*/
 
 void error(char *);
 
@@ -44,6 +45,18 @@ void writeExp(Exp *);
 #endif
 
 
+int cmpVar(Var *ob1, Var *ob2){
+#ifdef DEBUG
+    printf("cmpVar: ");
+    writeVar(ob1);
+    printf(" : ");
+    writeVar(ob2);
+    printf(" :\n");
+#endif
+    return strcmp(ob1->var_name, ob2->var_name);
+}
+
+/*
 int cmpFunt(Funt *ob1, Funt *ob2){
 #ifdef DEBUG
     printf("cmpFunt: ");
@@ -124,17 +137,6 @@ int cmpType(Type *ob1, Type *ob2){
     if(ob1->type_type==FUNT)return cmpFunt(ob1->u.funt_,ob2->u.funt_);
     if(ob1->type_type==LISTT)return cmpListt(ob1->u.listt_,ob2->u.listt_);
     return 0;
-}
-
-int cmpVar(Var *ob1, Var *ob2){
-#ifdef DEBUG
-    printf("cmpVar: ");
-    writeVar(ob1);
-    printf(" : ");
-    writeVar(ob2);
-    printf(" :\n");
-#endif
-    return strcmp(ob1->var_name, ob2->var_name);
 }
 
 int cmpOp(Op *ob1, Op *ob2){
