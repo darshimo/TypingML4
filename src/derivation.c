@@ -56,6 +56,7 @@ void T_Int(Cncl *cncl_ob, int d){
 
     Type *tmp = getRootBox(cncl_ob->box_)->u.type_;
     if(tmp->type_type==TBD){
+        free(tmp->u.tbd_);
         tmp->type_type = INTT;
     }else if(tmp->type_type!=INTT){
         error("error1");
@@ -93,6 +94,7 @@ void T_Bool(Cncl *cncl_ob, int d){
 
     Type *tmp = getRootBox(cncl_ob->box_)->u.type_;
     if(tmp->type_type==TBD){
+        free(tmp->u.tbd_);
         tmp->type_type = BOOLT;
     }else if(tmp->type_type!=BOOLT){
         error("error2");
