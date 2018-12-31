@@ -6,19 +6,20 @@ ANSWER = $(addprefix answer/, $(PROBLEM))
 TARGET = ./typingML4
 
 $(TARGET): $(OBJ)
-	gcc -o $@ obj/main.o obj/read.o obj/write.o obj/derivation.o obj/free.o obj/copy.o obj/error.o obj/debug.o obj/cmp.o obj/sub.o
+	gcc -o $@ $(OBJ)
 
 $(OBJ) : obj/%.o : src/%.c src/param.h
 	mkdir -p obj
 	gcc -c $< -o $@
 
 $(ANSWER) : answer/% : problem/%
+	mkdir -p answer
 	$(TARGET) $< > $@
 
 test : $(ANSWER)
 
 tclean :
-	rm answer/*
+	rm -r answer
 
 clean :
 	rm -r obj typingML4
