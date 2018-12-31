@@ -7,13 +7,16 @@
 void debugCncl(Cncl *,int);
 #endif
 
+#ifndef DEBUG
+void replaceAll(Cncl *);
+#endif
+
 void error(char*);
 Cncl* readCncl(char*);
 void derivation(Cncl*, int);
 void writeCncl(Cncl *, int);
 /*
 void freeCncl(Cncl *);
-void replaceAll(Cncl *);
 */
 
 
@@ -22,7 +25,7 @@ int main(int argc, char *argv[]){
 
     char *str = (char *)malloc(sizeof(char)*500);
     char *filename = (char *)malloc(sizeof(char)*20);
-    sprintf(filename,"../problem/TypingML4/%s",argv[1]);
+    sprintf(filename,"%s",argv[1]);
     FILE *fp;
     if((fp = fopen(filename,"r"))==NULL){
         printf("fopen error.");
@@ -61,7 +64,9 @@ int main(int argc, char *argv[]){
 #endif
 
 
-    //replaceAll(cncl_ob);
+#ifndef DEBUG
+    replaceAll(cncl_ob);
+#endif
 
 
     writeCncl(cncl_ob,0);

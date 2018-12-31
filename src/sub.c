@@ -115,15 +115,15 @@ void integrateBox(Box *ob1, Box *ob2){
     return;
 }
 
-/*
-void replaceTBD(Type *ob){
+void replaceTBD(Box *box_ob){
+    Type *ob = getRootBox(box_ob)->u.type_;
     TypeType tmp = ob->type_type;
     if(tmp==TBD)ob->type_type=INTT;
     else if(tmp==FUNT){
-        replaceTBD(ob->u.funt_->type1_);
-        replaceTBD(ob->u.funt_->type2_);
+        replaceTBD(ob->u.funt_->box1_);
+        replaceTBD(ob->u.funt_->box2_);
     }else if(tmp==LISTT){
-        replaceTBD(ob->u.listt_->type_);
+        replaceTBD(ob->u.listt_->box_);
     }
     return;
 }
@@ -136,10 +136,9 @@ void replaceAll(Cncl *ob){
     }
     Env *tmp2 = ob->env_;
     while(tmp2!=NULL){
-        replaceTBD(tmp2->type_);
+        replaceTBD(tmp2->box_);
         tmp2 = tmp2->prev;
     }
-    replaceTBD(ob->type_);
+    replaceTBD(ob->box_);
     return;
 }
-*/
