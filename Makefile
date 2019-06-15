@@ -5,6 +5,8 @@ PROBLEM = $(shell ls problem)
 ANSWER = $(addprefix answer/, $(PROBLEM))
 TARGET = ./typingML4
 
+all: $(TARGET)
+
 $(TARGET): $(OBJ)
 	gcc -o $@ $(OBJ)
 
@@ -16,7 +18,7 @@ $(ANSWER) : answer/% : problem/%
 	mkdir -p answer
 	$(TARGET) $< > $@
 
-test : $(ANSWER)
+test : all $(ANSWER)
 
 clean :
 	rm -rf obj typingML4 answer
