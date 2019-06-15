@@ -25,7 +25,7 @@ int main(int argc, char *argv[]){
 
     char *str = (char *)malloc(sizeof(char)*500);
     char *filename = (char *)malloc(sizeof(char)*20);
-    sprintf(filename,"problem/%s",argv[1]);
+    sprintf(filename,"%s",argv[1]);
     FILE *fp;
     if((fp = fopen(filename,"r"))==NULL){
         printf("fopen error.");
