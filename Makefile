@@ -18,8 +18,5 @@ $(ANSWER) : answer/% : problem/%
 
 test : $(ANSWER)
 
-tclean :
-	rm -r answer
-
 clean :
-	rm -r obj typingML4
+	rm -rf obj typingML4 answer

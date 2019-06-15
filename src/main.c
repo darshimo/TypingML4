@@ -24,8 +24,7 @@ int main(int argc, char *argv[]){
     if(argc!=2)error("arg is not correct.\n");
 
     char *str = (char *)malloc(sizeof(char)*500);
-    char *filename = (char *)malloc(sizeof(char)*20);
-    sprintf(filename,"%s",argv[1]);
+    char *filename = argv[1];
     FILE *fp;
     if((fp = fopen(filename,"r"))==NULL){
         printf("fopen error.");
