@@ -21,4 +21,4 @@ $(ANSWER) : answer/% : problem/%
 test : all $(ANSWER)
 
 clean :
-	rm -rf obj typingML4 answer
+	rm -rf $(TARGET) obj answer
