@@ -2,22 +2,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-//#define DEBUG
-#ifdef DEBUG
-void debugCncl(Cncl *,int);
+#ifdef DBG_ALL
+#define DBG_READ
+#define DBG_STRCT
+#define DBG_DRV
+#define DBG_SB
+//#define DBG_FREE
 #endif
 
-#ifndef DEBUG
-void replaceAll(Cncl *);
+#ifdef DBG_STRCT
+void debugCncl(Cncl *,int);
 #endif
 
 void error(char*);
 Cncl* readCncl(char*);
 void derivation(Cncl*, int);
 void writeCncl(Cncl *, int);
-/*
-void freeCncl(Cncl *);
-*/
+//void freeCncl(Cncl *);
+void replaceAll(Cncl *);
 
 
 int main(int argc, char *argv[]){
@@ -33,37 +35,33 @@ int main(int argc, char *argv[]){
     fgets(str,500,fp);
 
 
-#ifdef DEBUG
-    printf("%s\n\n",str);
-#endif
-
-
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("read start.\n");
 #endif
     Cncl *cncl_ob = readCncl(str);
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("read complete.\n\n");
 #endif
 
 
-#ifdef DEBUG
+#ifdef DBG_STRCT
     printf("debug start.\n");
     debugCncl(cncl_ob,0);
     printf("debug complete.\n\n");
 #endif
 
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     printf("derivation start.\n");
 #endif
     derivation(cncl_ob,0);
-#ifdef DEBUG
+#ifdef DBG_DRV
     printf("derivation complete.\n\n");
 #endif
 
 
-#ifndef DEBUG
+//#if !defined(DBG_READ && DBG_STRCT && DBG_DRV && DBG_SB && DBG_FREE)
+#if !defined(DBG_READ) && !defined(DBG_STRCT) && !defined(DBG_DRV) && !defined(DBG_SB) && !defined(DBG_FREE)
     replaceAll(cncl_ob);
 #endif
 
@@ -72,12 +70,12 @@ int main(int argc, char *argv[]){
 
 
     /*
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("\n\n");
     printf("free start.\n");
 #endif
     //freeCncl(cncl_ob);
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free complete.\n\n");
 #endif
 */

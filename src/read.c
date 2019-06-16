@@ -3,9 +3,11 @@
 #include <string.h>
 #include <ctype.h>
 
-//#define DEBUG
+#ifdef DBG_ALL
+#define DBG_READ
+#endif
 
-#ifdef DEBUG
+#ifdef DBG_READ
 #include <stdio.h>
 void ind(int d);
 #endif
@@ -34,7 +36,7 @@ Cncl *readCncl(char *);
 
 
 Funt *readFunt(char *str1, char *str2){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("funtt : %s -> %s\n",str1,str2);
 #endif
     Funt *ob = (Funt *)malloc(sizeof(Funt));
@@ -44,7 +46,7 @@ Funt *readFunt(char *str1, char *str2){
 }
 
 Listt *readListt(char *str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("listt : %s\n",str);
 #endif
     Listt *ob = (Listt *)malloc(sizeof(Listt));
@@ -88,7 +90,7 @@ Env *readEnv(char *str){
     str2++;
     str2+=strspn(str2," ");
 
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("env : %s,%s\n",str1,str2);
 #endif
 
@@ -133,7 +135,7 @@ Type *readType(char* str){
             return readType(str);
         };
     }
-#ifdef DEBUG
+#ifdef DBG_READ
     //printf("type : %s\n",str);
 #endif
     Type *ob = (Type *)malloc(sizeof(Type));
@@ -143,12 +145,12 @@ Type *readType(char* str){
     if(*tmp=='\0'){//when type is int or bool
         if(strncmp(str,"int",3)==0){
             ob->type_type = INTT;
-#ifdef DEBUG
+#ifdef DBG_READ
             printf("intt : %s\n",str);
 #endif
         }else if(strncmp(str,"bool",3)==0){
             ob->type_type = BOOLT;
-#ifdef DEBUG
+#ifdef DBG_READ
             printf("boolt : %s\n",str);
 #endif
         }else{
@@ -186,7 +188,7 @@ Type *readType(char* str){
 }
 
 Int *readInt(char *str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("int : %s\n",str);
 #endif
     Int *ob = (Int *)malloc(sizeof(Int));
@@ -196,7 +198,7 @@ Int *readInt(char *str){
 
 
 Bool *readBool(char *str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("bool : %s\n",str);
 #endif
     Bool *ob = (Bool *)malloc(sizeof(Bool));
@@ -207,7 +209,7 @@ Bool *readBool(char *str){
 
 
 Var *readVar(char *str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("var : %s\n",str);
 #endif
     Var *ob = (Var *)malloc(sizeof(Var));
@@ -219,7 +221,7 @@ Var *readVar(char *str){
 
 
 If *readIf(char *str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("if  : %s\n",str);
 #endif
     If *ob = (If *)malloc(sizeof(If));
@@ -275,7 +277,7 @@ If *readIf(char *str){
 
 
 Op *readOp(char* str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("op  : %s\n",str);
 #endif
     Op *ob = (Op *)malloc(sizeof(Op));
@@ -332,7 +334,7 @@ Op *readOp(char* str){
 
 
 Let *readLet(char *str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("let : %s\n",str);
 #endif
     Let *ob = (Let *)malloc(sizeof(Let));
@@ -378,7 +380,7 @@ Let *readLet(char *str){
 
 
 Fun *readFun(char *str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("fun : %s\n",str);
 #endif
     Fun *ob = (Fun *)malloc(sizeof(Fun));
@@ -402,7 +404,7 @@ Fun *readFun(char *str){
 
 
 App *readApp(char *str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("app : %s\n",str);
 #endif
     App *ob = (App *)malloc(sizeof(App));
@@ -451,7 +453,7 @@ App *readApp(char *str){
 
 
 LetRec *readLetRec(char *str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("letrec : %s\n",str);
 #endif
     LetRec *ob = (LetRec *)malloc(sizeof(LetRec));
@@ -510,7 +512,7 @@ LetRec *readLetRec(char *str){
 
 
 Cons *readCons(char *str1, char *str2){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("cons : %s :: %s\n",str1,str2);
 #endif
     Cons *ob = (Cons *)malloc(sizeof(Cons));
@@ -523,7 +525,7 @@ Cons *readCons(char *str1, char *str2){
 
 
 Match *readMatch(char *str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("match : %s\n",str);
 #endif
     Match *ob = (Match *)malloc(sizeof(Match));
@@ -639,7 +641,7 @@ Exp *readExp(char* str){
         }
     }
 
-#ifdef DEBUG
+#ifdef DBG_READ
     //printf("exp : %s\n",str);
 #endif
 
@@ -728,7 +730,7 @@ Exp *readExp(char* str){
 
 
 Cncl *readCncl(char* str){
-#ifdef DEBUG
+#ifdef DBG_READ
     printf("cncl: %s\n",str);
 #endif
     Cncl *ob = (Cncl *)malloc(sizeof(Cncl));

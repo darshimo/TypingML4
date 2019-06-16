@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include "param.h"
 
-//#define DEBUG
+#ifdef DBG_ALL
+#define DBG_SB
+#endif
 
 int cmpVar(Var *, Var *);
 Type *copyType(Type *);
@@ -69,7 +71,7 @@ Box *getEnvBox(Env *gamma, Var *x){
 void integrateBox(Box *ob1, Box *ob2){
     ob1 = getRootBox(ob1);
     ob2 = getRootBox(ob2);
-#ifdef DEBUG
+#ifdef DBG_SB
     printf("integrate: ");
     writeBox(ob1);
     printf(" : ");
@@ -77,7 +79,7 @@ void integrateBox(Box *ob1, Box *ob2){
     printf(" :\n");
 #endif
     if(ob1==ob2){
-#ifdef DEBUG
+#ifdef DBG_SB
         printf("same pointer\n");
 #endif
         return;

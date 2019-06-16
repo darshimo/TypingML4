@@ -6,5 +6,5 @@
 
 ```
 make
-./typingML4 [問題番号(80~106)]
+./typingML4 problem/[問題番号(80~106)]
 ```

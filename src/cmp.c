@@ -1,7 +1,9 @@
 #include <string.h>
 #include "param.h"
 
-//#define DEBUG
+#ifdef DBG_ALL
+#define DBG_CMP
+#endif
 
 int cmpVar(Var *,Var *);
 /*
@@ -25,7 +27,7 @@ int cmpExp(Exp *,Exp *);
 void error(char *);
 
 
-#ifdef DEBUG
+#ifdef DBG_CMP
 #include <stdio.h>
 void writeFunt(Funt *);
 void writeListt(Listt *);
@@ -46,7 +48,7 @@ void writeExp(Exp *);
 
 
 int cmpVar(Var *ob1, Var *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpVar: ");
     writeVar(ob1);
     printf(" : ");
@@ -58,7 +60,7 @@ int cmpVar(Var *ob1, Var *ob2){
 
 /*
 int cmpFunt(Funt *ob1, Funt *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpFunt: ");
     writeFunt(ob1);
     printf(" : ");
@@ -71,7 +73,7 @@ int cmpFunt(Funt *ob1, Funt *ob2){
 }
 
 int cmpListt(Listt *ob1, Listt *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpListt: ");
     writeListt(ob1);
     printf(" : ");
@@ -82,7 +84,7 @@ int cmpListt(Listt *ob1, Listt *ob2){
 }
 
 int cmpInt(Int *ob1, Int *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpInt: ");
     writeInt(ob1);
     printf(" : ");
@@ -93,7 +95,7 @@ int cmpInt(Int *ob1, Int *ob2){
 }
 
 int cmpBool(Bool *ob1, Bool *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpBool: ");
     writeBool(ob1);
     printf(" : ");
@@ -104,7 +106,7 @@ int cmpBool(Bool *ob1, Bool *ob2){
 }
 
 int cmpEnv(Env *ob1, Env *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpEnv: ");
     writeEnv(ob1);
     printf(" : ");
@@ -123,13 +125,13 @@ int cmpType(Type *ob1, Type *ob2){
     if(ob2->type_type==TBD)error("type of ob2 is not defined.");
     if(ob1->type_type!=ob2->type_type)return 1;
     if(ob1->type_type==INTT){
-#ifdef DEBUG
+#ifdef DBG_CMP
         printf("cmpIntt: intt : intt :\n");
 #endif
         return 0;
     }
     if(ob1->type_type==BOOLT){
-#ifdef DEBUG
+#ifdef DBG_CMP
         printf("cmpBoolt: boolt : boolt :\n");
 #endif
         return 0;
@@ -140,7 +142,7 @@ int cmpType(Type *ob1, Type *ob2){
 }
 
 int cmpOp(Op *ob1, Op *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpOp: ");
     writeOp(ob1);
     printf(" : ");
@@ -154,7 +156,7 @@ int cmpOp(Op *ob1, Op *ob2){
 }
 
 int cmpIf(If *ob1, If *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpIf: ");
     writeIf(ob1);
     printf(" : ");
@@ -168,7 +170,7 @@ int cmpIf(If *ob1, If *ob2){
 }
 
 int cmpLet(Let *ob1, Let *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpLet: ");
     writeLet(ob1);
     printf(" : ");
@@ -182,7 +184,7 @@ int cmpLet(Let *ob1, Let *ob2){
 }
 
 int cmpFun(Fun *ob1, Fun *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpFun: ");
     writeFun(ob1);
     printf(" : ");
@@ -195,7 +197,7 @@ int cmpFun(Fun *ob1, Fun *ob2){
 }
 
 int cmpApp(App *ob1, App *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpApp: ");
     writeApp(ob1);
     printf(" : ");
@@ -208,7 +210,7 @@ int cmpApp(App *ob1, App *ob2){
 }
 
 int cmpLetRec(LetRec *ob1, LetRec *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpLetRec: ");
     writeLetRec(ob1);
     printf(" : ");
@@ -223,7 +225,7 @@ int cmpLetRec(LetRec *ob1, LetRec *ob2){
 }
 
 int cmpCons(Cons *ob1, Cons *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpCons: ");
     writeCons(ob1);
     printf(" : ");
@@ -236,7 +238,7 @@ int cmpCons(Cons *ob1, Cons *ob2){
 }
 
 int cmpMatch(Match *ob1, Match *ob2){
-#ifdef DEBUG
+#ifdef DBG_CMP
     printf("cmpMatch: ");
     writeMatch(ob1);
     printf(" : ");

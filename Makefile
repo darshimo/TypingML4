@@ -1,3 +1,5 @@
+CC = gcc
+CFLAGS = -Wall
 SRC = $(shell ls src)
 SRCC = $(filter %.c, $(SRC))
 OBJ = $(addprefix obj/, $(SRCC:%.c=%.o))
@@ -8,11 +10,11 @@ TARGET = ./typingML4
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	gcc -o $@ $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $(OBJ)
 
 $(OBJ) : obj/%.o : src/%.c src/param.h
 	mkdir -p obj
-	gcc -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(ANSWER) : answer/% : problem/%
 	mkdir -p answer

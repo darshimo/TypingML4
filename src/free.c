@@ -2,8 +2,11 @@
 #include <stdlib.h>
 
 /*
-//#define DEBUG
-#ifdef DEBUG
+#ifdef DBG_ALL
+#define DBG_FREE
+#endif
+
+#ifdef DBG_FREE
 #include <stdio.h>
 #endif
 
@@ -28,7 +31,7 @@ void freeCncl(Cncl *);
 
 
 void freeFunt(Funt *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free funt\n");
 #endif
     freeType(ob->type1_);
@@ -38,7 +41,7 @@ void freeFunt(Funt *ob){
 }
 
 void freeListt(Listt *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free listt\n");
 #endif
     freeType(ob->type_);
@@ -48,7 +51,7 @@ void freeListt(Listt *ob){
 
 void freeEnv(Env *ob){
     if(ob==NULL)return;
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free env\n");
 #endif
     freeVar(ob->var_);
@@ -59,7 +62,7 @@ void freeEnv(Env *ob){
 }
 
 void freeType(Type *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free type\n");
 #endif
     TypeType tmp = ob->type_type;
@@ -70,7 +73,7 @@ void freeType(Type *ob){
 }
 
 void freeInt(Int *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free int\n");
 #endif
     free(ob);
@@ -78,7 +81,7 @@ void freeInt(Int *ob){
 }
 
 void freeBool(Bool *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free bool\n");
 #endif
     free(ob);
@@ -86,7 +89,7 @@ void freeBool(Bool *ob){
 }
 
 void freeVar(Var *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free var\n");
 #endif
     free(ob->var_name);
@@ -95,7 +98,7 @@ void freeVar(Var *ob){
 }
 
 void freeOp(Op *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free op\n");
 #endif
     freeExp(ob->exp1_);
@@ -105,7 +108,7 @@ void freeOp(Op *ob){
 }
 
 void freeIf(If *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free if\n");
 #endif
     freeExp(ob->exp1_);
@@ -116,7 +119,7 @@ void freeIf(If *ob){
 }
 
 void freeLet(Let *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free let\n");
 #endif
     freeVar(ob->x);
@@ -127,7 +130,7 @@ void freeLet(Let *ob){
 }
 
 void freeFun(Fun *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free fun\n");
 #endif
     freeVar(ob->x);
@@ -137,7 +140,7 @@ void freeFun(Fun *ob){
 }
 
 void freeApp(App *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free app\n");
 #endif
     freeExp(ob->exp1_);
@@ -147,7 +150,7 @@ void freeApp(App *ob){
 }
 
 void freeLetRec(LetRec *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free letrec\n");
 #endif
     freeVar(ob->x);
@@ -158,7 +161,7 @@ void freeLetRec(LetRec *ob){
 }
 
 void freeCons(Cons *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free cons\n");
 #endif
     freeExp(ob->exp1_);
@@ -167,7 +170,7 @@ void freeCons(Cons *ob){
 }
 
 void freeMatch(Match *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free match\n");
 #endif
     freeExp(ob->exp1_);
@@ -179,7 +182,7 @@ void freeMatch(Match *ob){
 }
 
 void freeExp(Exp *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free exp\n");
 #endif
     if(ob->exp_type==INT)freeInt(ob->u.int_);
@@ -199,7 +202,7 @@ void freeExp(Exp *ob){
 
 void freeAsmp(Asmp *ob){
     if(ob==NULL)return;
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free asmp\n");
 #endif
     freeCncl(ob->cncl_);
@@ -209,7 +212,7 @@ void freeAsmp(Asmp *ob){
 }
 
 void freeCncl(Cncl *ob){
-#ifdef DEBUG
+#ifdef DBG_FREE
     printf("free cncl\n");
 #endif
     freeAsmp(ob->asmp_);

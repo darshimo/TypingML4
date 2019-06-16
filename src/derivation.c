@@ -3,7 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-//#define DEBUG
+#ifdef DBG_ALL
+#define DBG_DRV
+#endif
 
 void error(char *);
 Box *getRootBox(Box *);
@@ -23,7 +25,7 @@ void freeType(Type *);
 void freeEnv(Env *);
 */
 
-#ifdef DEBUG
+#ifdef DBG_DRV
 void writeInt(Int *);
 void writeBool(Bool *);
 void writeEnv(Env *);
@@ -39,7 +41,7 @@ void derivation(Cncl *, int);
 
 
 void T_Int(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Int: ");
     writeEnv(cncl_ob->env_);
@@ -62,7 +64,7 @@ void T_Int(Cncl *cncl_ob, int d){
         error("error1");
     }
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Int: ");
     writeEnv(cncl_ob->env_);
@@ -77,7 +79,7 @@ void T_Int(Cncl *cncl_ob, int d){
 }
 
 void T_Bool(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Bool: ");
     writeEnv(cncl_ob->env_);
@@ -100,7 +102,7 @@ void T_Bool(Cncl *cncl_ob, int d){
         error("error2");
     }
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Bool: ");
     writeEnv(cncl_ob->env_);
@@ -116,7 +118,7 @@ void T_Bool(Cncl *cncl_ob, int d){
 
 
 void T_Var(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Var: ");
     writeEnv(cncl_ob->env_);
@@ -138,7 +140,7 @@ void T_Var(Cncl *cncl_ob, int d){
     Box *box_ob2 = getRootBox(getEnvBox(gamma,x));
     integrateBox(box_ob1,box_ob2);
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Var: ");
     writeEnv(cncl_ob->env_);
@@ -153,7 +155,7 @@ void T_Var(Cncl *cncl_ob, int d){
 }
 
 void T_Op(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Op: ");
     writeEnv(cncl_ob->env_);
@@ -212,7 +214,7 @@ void T_Op(Cncl *cncl_ob, int d){
         }
     }
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Op: ");
     writeEnv(cncl_ob->env_);
@@ -227,7 +229,7 @@ void T_Op(Cncl *cncl_ob, int d){
 }
 
 void T_If(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-If: ");
     writeEnv(cncl_ob->env_);
@@ -270,7 +272,7 @@ void T_If(Cncl *cncl_ob, int d){
     asmp_ob->next->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-If: ");
     writeEnv(cncl_ob->env_);
@@ -285,7 +287,7 @@ void T_If(Cncl *cncl_ob, int d){
 }
 
 void T_Let(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Let: ");
     writeEnv(cncl_ob->env_);
@@ -328,7 +330,7 @@ void T_Let(Cncl *cncl_ob, int d){
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Let: ");
     writeEnv(cncl_ob->env_);
@@ -343,7 +345,7 @@ void T_Let(Cncl *cncl_ob, int d){
 }
 
 void T_Fun(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Fun: ");
     writeEnv(cncl_ob->env_);
@@ -398,7 +400,7 @@ void T_Fun(Cncl *cncl_ob, int d){
     asmp_ob->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Fun: ");
     writeEnv(cncl_ob->env_);
@@ -413,7 +415,7 @@ void T_Fun(Cncl *cncl_ob, int d){
 }
 
 void T_App(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-App: ");
     writeEnv(cncl_ob->env_);
@@ -458,7 +460,7 @@ void T_App(Cncl *cncl_ob, int d){
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-App: ");
     writeEnv(cncl_ob->env_);
@@ -473,7 +475,7 @@ void T_App(Cncl *cncl_ob, int d){
 }
 
 void T_LetRec(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-LetRec: ");
     writeEnv(cncl_ob->env_);
@@ -537,7 +539,7 @@ void T_LetRec(Cncl *cncl_ob, int d){
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-LetRec: ");
     writeEnv(cncl_ob->env_);
@@ -554,7 +556,7 @@ void T_LetRec(Cncl *cncl_ob, int d){
 
 
 void T_Nil(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Nil: ");
     writeEnv(cncl_ob->env_);
@@ -582,7 +584,7 @@ void T_Nil(Cncl *cncl_ob, int d){
         error("Nil is not list.");
     }
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Nil: ");
     writeEnv(cncl_ob->env_);
@@ -597,7 +599,7 @@ void T_Nil(Cncl *cncl_ob, int d){
 }
 
 void T_Cons(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Cons: ");
     writeEnv(cncl_ob->env_);
@@ -648,7 +650,7 @@ void T_Cons(Cncl *cncl_ob, int d){
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Cons: ");
     writeEnv(cncl_ob->env_);
@@ -663,7 +665,7 @@ void T_Cons(Cncl *cncl_ob, int d){
 }
 
 void T_Match(Cncl *cncl_ob, int d){
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Match: ");
     writeEnv(cncl_ob->env_);
@@ -727,7 +729,7 @@ void T_Match(Cncl *cncl_ob, int d){
     asmp_ob->next->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
-#ifdef DEBUG
+#ifdef DBG_DRV
     tree(d);
     printf("T-Match: ");
     writeEnv(cncl_ob->env_);
