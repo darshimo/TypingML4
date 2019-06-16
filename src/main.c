@@ -7,6 +7,7 @@
 #define DBG_STRCT
 #define DBG_DRV
 #define DBG_SB
+#define DBG_WRITE
 //#define DBG_FREE
 #endif
 
@@ -60,13 +61,18 @@ int main(int argc, char *argv[]){
 #endif
 
 
-//#if !defined(DBG_READ && DBG_STRCT && DBG_DRV && DBG_SB && DBG_FREE)
 #if !defined(DBG_READ) && !defined(DBG_STRCT) && !defined(DBG_DRV) && !defined(DBG_SB) && !defined(DBG_FREE)
     replaceAll(cncl_ob);
 #endif
 
 
+#ifdef DBG_WRITE
+    printf("write start.\n");
+#endif
     writeCncl(cncl_ob,0);
+#ifdef DBG_WRITE
+    printf("\nwrite complete.\n\n");
+#endif
 
 
     /*
