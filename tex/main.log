@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.7.1-u1.22-161114-2.6 (utf8.uptex) (TeX Live 2017) (preloaded format=uplatex 2017.9.14)  19 NOV 2019 01:35
+This is e-upTeX, Version 3.14159265-p3.7.1-u1.22-161114-2.6 (utf8.uptex) (TeX Live 2017) (preloaded format=uplatex 2017.9.14)  19 NOV 2019 02:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -27,52 +27,82 @@ LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
 \belowcaptionskip=\skip42
 \bibindent=\dimen118
 )
+(/usr/local/texlive/2017basic/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(/usr/local/texlive/2017basic/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(/usr/local/texlive/2017basic/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+)
+(/usr/local/texlive/2017basic/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/local/texlive/2017basic/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count90
+\Gm@cntv=\count91
+\c@Gm@tempcnt=\count92
+\Gm@bindingoffset=\dimen119
+\Gm@wd@mp=\dimen120
+\Gm@odd@mp=\dimen121
+\Gm@even@mp=\dimen122
+\Gm@layoutwidth=\dimen123
+\Gm@layoutheight=\dimen124
+\Gm@layouthoffset=\dimen125
+\Gm@layoutvoffset=\dimen126
+\Gm@dimlist=\toks16
+)
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/bussproofs/bussproofs.sty
 Proof Tree (bussproofs) style macros. Version 1.1.
-\theLevel=\count90
-\myMaxLevel=\count91
+\theLevel=\count93
+\myMaxLevel=\count94
 \myBoxA=\box42
 \myBoxB=\box43
 \myBoxC=\box44
 \myBoxD=\box45
 \myBoxLL=\box46
 \myBoxRL=\box47
-\thisAboveSkip=\dimen119
-\thisBelowSkip=\dimen120
-\newScoreStart=\dimen121
-\newScoreEnd=\dimen122
-\newCenter=\dimen123
-\displace=\dimen124
-\leftLowerAmt=\dimen125
-\rightLowerAmt=\dimen126
-\scoreHeight=\dimen127
-\scoreDepth=\dimen128
-\htLbox=\dimen129
-\htRbox=\dimen130
-\htRRbox=\dimen131
-\htRRRbox=\dimen132
-\htAbox=\dimen133
-\htCbox=\dimen134
+\thisAboveSkip=\dimen127
+\thisBelowSkip=\dimen128
+\newScoreStart=\dimen129
+\newScoreEnd=\dimen130
+\newCenter=\dimen131
+\displace=\dimen132
+\leftLowerAmt=\dimen133
+\rightLowerAmt=\dimen134
+\scoreHeight=\dimen135
+\scoreDepth=\dimen136
+\htLbox=\dimen137
+\htRbox=\dimen138
+\htRRbox=\dimen139
+\htRRRbox=\dimen140
+\htAbox=\dimen141
+\htCbox=\dimen142
 ) (/usr/local/texlive/2017basic/texmf-dist/tex/platex/base/ascmac.sty
 Package: ascmac 2017/07/22 v2.0d ascmac wrapper (community edition) 
 
 (/usr/local/texlive/2017basic/texmf-dist/tex/platex/base/tascmac.sty
 Package: tascmac 2017/07/22 v2.0d ascmac package (community edition) 
-\@savetbaselineshift=\dimen135
-\@saveybaselineshift=\dimen136
+\@savetbaselineshift=\dimen143
+\@saveybaselineshift=\dimen144
 \scb@x=\box48
 \scscb@x=\box49
-\@bw=\dimen137
+\@bw=\dimen145
 \@nbox=\box50
 \@nbody=\box51
-\@scw=\dimen138
-\@itemh=\dimen139
-\@iboxpos=\toks15
+\@scw=\dimen146
+\@itemh=\dimen147
+\@iboxpos=\toks17
 \@iboxstr=\box52
 \@bwsp=\box53
 \@@bwsp=\box54
-\@bcal=\count92
-\shaderule=\dimen140
+\@bcal=\count95
+\shaderule=\dimen148
 ))
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2017/09/02 v2.17a AMS math features
@@ -84,51 +114,51 @@ Package: amstext 2000/06/29 v2.01 AMS text
 
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks16
-\ex@=\dimen141
+\@emptytoks=\toks18
+\ex@=\dimen149
 ))
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen142
+\pmbraise@=\dimen150
 )
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2016/03/08 v2.02 operator names
 )
-\inf@bad=\count93
+\inf@bad=\count96
 LaTeX Info: Redefining \frac on input line 213.
-\uproot@=\count94
-\leftroot@=\count95
+\uproot@=\count97
+\leftroot@=\count98
 LaTeX Info: Redefining \overline on input line 375.
-\classnum@=\count96
-\DOTSCASE@=\count97
+\classnum@=\count99
+\DOTSCASE@=\count100
 LaTeX Info: Redefining \ldots on input line 472.
 LaTeX Info: Redefining \dots on input line 475.
 LaTeX Info: Redefining \cdots on input line 596.
 \Mathstrutbox@=\box55
 \strutbox@=\box56
-\big@size=\dimen143
+\big@size=\dimen151
 LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
-\macc@depth=\count98
-\c@MaxMatrixCols=\count99
+\macc@depth=\count101
+\c@MaxMatrixCols=\count102
 \dotsspace@=\muskip10
-\c@parentequation=\count100
-\dspbrk@lvl=\count101
-\tag@help=\toks17
-\row@=\count102
-\column@=\count103
-\maxfields@=\count104
-\andhelp@=\toks18
-\eqnshift@=\dimen144
-\alignsep@=\dimen145
-\tagshift@=\dimen146
-\tagwidth@=\dimen147
-\totwidth@=\dimen148
-\lineht@=\dimen149
-\@envbody=\toks19
+\c@parentequation=\count103
+\dspbrk@lvl=\count104
+\tag@help=\toks19
+\row@=\count105
+\column@=\count106
+\maxfields@=\count107
+\andhelp@=\toks20
+\eqnshift@=\dimen152
+\alignsep@=\dimen153
+\tagshift@=\dimen154
+\tagwidth@=\dimen155
+\totwidth@=\dimen156
+\lineht@=\dimen157
+\@envbody=\toks21
 \multlinegap=\skip44
 \multlinetaggap=\skip45
-\mathdisplay@stack=\toks20
+\mathdisplay@stack=\toks22
 LaTeX Info: Redefining \[ on input line 2817.
 LaTeX Info: Redefining \] on input line 2818.
 )
@@ -142,40 +172,88 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
+(/usr/local/texlive/2017basic/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2017basic/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/local/texlive/2017basic/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: dvips.def on input line 99.
+
+(/usr/local/texlive/2017basic/texmf-dist/tex/latex/graphics-def/dvips.def
+File: dvips.def 2017/06/20 v3.1d Graphics/color driver for dvips
+))
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for JY2/mc/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
-LaTeX Font Info:    Checking defaults for JT2/mc/m/n on input line 12.
-LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for JY2/mc/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for JT2/mc/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: dvips
+*geometry* verbose mode - [ preamble ] result:
+* driver: dvips
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: landscape 
+* h-part:(L,W,R)=(42.67912pt, 709.61174pt, 42.67912pt)
+* v-part:(T,H,B)=(42.67912pt, 528.93675pt, 42.67912pt)
+* \paperwidth=794.96999pt
+* \paperheight=614.295pt
+* \textwidth=709.61174pt
+* \textheight=528.93675pt
+* \oddsidemargin=-29.59087pt
+* \evensidemargin=-29.59087pt
+* \topmargin=-66.59087pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=144.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 ! Missing number, treated as zero.
 <to be read again> 
                    \protect 
-l.15     \boldsymbol
+l.12     \boldsymbol
                     {i} & \in \mathbf{Int} & &\\
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
 look up `weird error' in the index to The TeXbook.)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 15.
+LaTeX Font Info:    Try loading font information for U+msa on input line 12.
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 15.
+LaTeX Font Info:    Try loading font information for U+msb on input line 12.
 
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -183,7 +261,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.15     \boldsymbol
+l.12     \boldsymbol
                     {i} & \in \mathbf{Int} & &\\
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -191,7 +269,7 @@ you left one out. Proceed, with fingers crossed.
 ! Extra }, or forgotten $.
 \math@atom #1#2->\binrel@ {#1}\binrel@@ {#2}
                                             
-l.15     \boldsymbol
+l.12     \boldsymbol
                     {i} & \in \mathbf{Int} & &\\
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -202,7 +280,7 @@ deleted material, e.g., by typing `I$}'.
 ! Missing $ inserted.
 <inserted text> 
                 $
-l.15     \boldsymbol
+l.12     \boldsymbol
                     {i} & \in \mathbf{Int} & &\\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -213,7 +291,7 @@ my insertion and my current dilemma will both disappear.
 ! Missing } inserted.
 <inserted text> 
                 }
-l.15     \boldsymbol
+l.12     \boldsymbol
                     {i} & \in \mathbf{Int} & &\\
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -228,7 +306,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 \An extra & here is so disastrous that you should probably exit
  and fix things up. 
@@ -240,7 +318,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 \An extra & here is so disastrous that you should probably exit
  and fix things up. 
@@ -252,7 +330,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 \An extra & here is so disastrous that you should probably exit
  and fix things up. 
@@ -264,7 +342,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 \An extra & here is so disastrous that you should probably exit
  and fix things up. 
@@ -276,7 +354,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 \An extra & here is so disastrous that you should probably exit
  and fix things up. 
@@ -288,7 +366,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 \An extra & here is so disastrous that you should probably exit
  and fix things up. 
@@ -300,7 +378,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 \An extra & here is so disastrous that you should probably exit
  and fix things up. 
@@ -312,7 +390,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 \An extra & here is so disastrous that you should probably exit
  and fix things up. 
@@ -324,7 +402,7 @@ See the amsmath package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 \An extra & here is so disastrous that you should probably exit
  and fix things up. 
@@ -332,7 +410,7 @@ l.32 \end{alignat*}
 ! Misplaced \omit.
 \math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
                                                   \kern -\alignsep@ \iftag@ ...
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 I expect to see \omit only after tab marks or the \cr of
 an alignment. Proceed, and I'll ignore this case.
@@ -340,7 +418,7 @@ an alignment. Proceed, and I'll ignore this case.
 ! Misplaced \omit.
 \math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
                                                   \kern -\alignsep@ \iftag@ ...
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 I expect to see \omit only after tab marks or the \cr of
 an alignment. Proceed, and I'll ignore this case.
@@ -348,7 +426,7 @@ an alignment. Proceed, and I'll ignore this case.
 ! Misplaced \omit.
 \math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
                                                   \kern -\alignsep@ \iftag@ ...
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 I expect to see \omit only after tab marks or the \cr of
 an alignment. Proceed, and I'll ignore this case.
@@ -356,7 +434,7 @@ an alignment. Proceed, and I'll ignore this case.
 ! Misplaced \omit.
 \math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
                                                   \kern -\alignsep@ \iftag@ ...
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 I expect to see \omit only after tab marks or the \cr of
 an alignment. Proceed, and I'll ignore this case.
@@ -364,7 +442,7 @@ an alignment. Proceed, and I'll ignore this case.
 ! Misplaced \omit.
 \math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
                                                   \kern -\alignsep@ \iftag@ ...
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 I expect to see \omit only after tab marks or the \cr of
 an alignment. Proceed, and I'll ignore this case.
@@ -372,7 +450,7 @@ an alignment. Proceed, and I'll ignore this case.
 ! Misplaced \omit.
 \math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
                                                   \kern -\alignsep@ \iftag@ ...
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 I expect to see \omit only after tab marks or the \cr of
 an alignment. Proceed, and I'll ignore this case.
@@ -380,7 +458,7 @@ an alignment. Proceed, and I'll ignore this case.
 ! Misplaced \omit.
 \math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
                                                   \kern -\alignsep@ \iftag@ ...
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 I expect to see \omit only after tab marks or the \cr of
 an alignment. Proceed, and I'll ignore this case.
@@ -388,7 +466,7 @@ an alignment. Proceed, and I'll ignore this case.
 ! Misplaced \omit.
 \math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
                                                   \kern -\alignsep@ \iftag@ ...
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 I expect to see \omit only after tab marks or the \cr of
 an alignment. Proceed, and I'll ignore this case.
@@ -396,21 +474,34 @@ an alignment. Proceed, and I'll ignore this case.
 ! Misplaced \omit.
 \math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
                                                   \kern -\alignsep@ \iftag@ ...
-l.32 \end{alignat*}
+l.29 \end{alignat*}
                    
 I expect to see \omit only after tab marks or the \cr of
 an alignment. Proceed, and I'll ignore this case.
 
 [1
 
-] (./main.aux) ) 
+]
+\myBox1=\box57
+\myScoreStart1=\dimen158
+\myCenter1=\dimen159
+\myScoreEnd1=\dimen160
+\myBox2=\box58
+\myScoreStart2=\dimen161
+\myCenter2=\dimen162
+\myScoreEnd2=\dimen163
+\myBox3=\box59
+\myScoreStart3=\dimen164
+\myCenter3=\dimen165
+\myScoreEnd3=\dimen166
+ [2] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 1354 strings out of 494867
- 15505 string characters out of 6175422
- 79858 words of memory out of 5000000
- 4893 multiletter control sequences out of 15000+600000
+ 2134 strings out of 494867
+ 26689 string characters out of 6175422
+ 106364 words of memory out of 5000000
+ 5641 multiletter control sequences out of 15000+600000
  11031 words of font info for 52 fonts, out of 8000000 for 9000
  107 hyphenation exceptions out of 8191
- 27i,12n,26p,200b,162s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 27i,12n,26p,255b,162s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (1 page, 1560 bytes).
+Output written on main.dvi (2 pages, 8804 bytes).

@@ -1,13 +1,10 @@
-\documentclass{article}
-
-
-
-
+\documentclass[10pt,landscape]{article}
+\usepackage[top=15truemm,bottom=15truemm,left=15truemm,right=15truemm]{geometry}
 \usepackage{bussproofs}
 \usepackage{ascmac,amsmath,amssymb,amsbsy}
+\usepackage{graphics}
 
-
-
+\newcommand{\mini}[1]{\scalebox{0.7}{#1}}
 
 \begin{document}
 
@@ -23,15 +20,128 @@
     \mid \boldsymbol{x}
     \mid \boldsymbol{e ~ op ~ e}
     \mid \mathtt{if} ~ \boldsymbol{e} ~ \mathtt{then} ~ \boldsymbol{e} ~ \mathtt{else} ~ \boldsymbol{e}
-    \mid \mathtt{let} ~ \boldsymbol{x ~ = ~ e} ~ \mathtt{in} ~ \boldsymbol{e}\\
+    \mid \mathtt{let} ~ \boldsymbol{x = e} ~ \mathtt{in} ~ \boldsymbol{e}\\
     &&&\mid \mathtt{fun} ~ \boldsymbol{x} \to \boldsymbol{e}
-    \mid \mathtt{let rec} ~ \boldsymbol{x =} ~ \mathtt{fun} ~ \boldsymbol{y} \to \boldsymbol{e} ~ \mathtt{in} ~ \boldsymbol{e}\\
+    \mid \mathtt{let ~ rec} ~ \boldsymbol{x} = \mathtt{fun} ~ \boldsymbol{y} \to \boldsymbol{e} ~ \mathtt{in} ~ \boldsymbol{e}\\
     &&&\mid \boldsymbol{[]}
     \mid \boldsymbol{e} :: \boldsymbol{e}
     \mid \mathtt{match} ~ \boldsymbol{e} ~ \mathtt{with} ~ \boldsymbol{[]} \to \boldsymbol{e} ~ \boldsymbol{|} ~ \boldsymbol{x} :: \boldsymbol{y} \to \boldsymbol{e}
 \end{alignat*}
 
+\newpage
 
+\begin{center}
+    \AxiomC{${}_{}$}
+    \RightLabel{(T-I\mini{NT})}
+    \UnaryInfC{$\boldsymbol{\Gamma} \vdash \boldsymbol{i} : \mathtt{int}$}
+    \DisplayProof
+    \hspace{12pt}
+    \AxiomC{${}_{}$}
+    \RightLabel{(T-B\mini{OOL})}
+    \UnaryInfC{$\boldsymbol{\Gamma} \vdash \boldsymbol{b} : \mathtt{bool}$}
+    \DisplayProof
+    \hspace{12pt}
+    \AxiomC{$(\boldsymbol{\Gamma}(\boldsymbol{x}) = \boldsymbol{\tau})$}
+    \RightLabel{(T-V\mini{AR})}
+    \UnaryInfC{$\boldsymbol{\Gamma} \vdash \boldsymbol{x} : \boldsymbol{\tau}$}
+    \DisplayProof
+\end{center}
+
+\vspace{-5pt}
+
+\begin{prooftree}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1} : \mathtt{bool}$}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_2} : \boldsymbol{\tau}$}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_3} : \boldsymbol{\tau}$}\RightLabel{(T-I\mini{F})}
+    \TrinaryInfC{$\boldsymbol{\Gamma} \vdash \mathtt{if} ~ \boldsymbol{e_1} ~ \mathtt{then} ~ \boldsymbol{e_2} ~ \mathtt{else} ~ \boldsymbol{e_3} : \boldsymbol{\tau}$}
+\end{prooftree}
+
+\vspace{-5pt}
+
+\begin{center}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1} : \mathtt{int}$}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_2} : \mathtt{int}$}
+    \RightLabel{(T-P\mini{LUS})}
+    \BinaryInfC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1 + e_2} : \mathtt{int}$}
+    \DisplayProof
+    \hspace{12pt}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1} : \mathtt{int}$}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_2} : \mathtt{int}$}
+    \RightLabel{(T-M\mini{INUS})}
+    \BinaryInfC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1 - e_2} : \mathtt{int}$}
+    \DisplayProof
+\end{center}
+
+\vspace{-5pt}
+
+\begin{center}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1} : \mathtt{int}$}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_2} : \mathtt{int}$}
+    \RightLabel{(T-T\mini{IMES})}
+    \BinaryInfC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1 * e_2} : \mathtt{int}$}
+    \DisplayProof
+    \hspace{12pt}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1} : \mathtt{int}$}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_2} : \mathtt{int}$}
+    \RightLabel{(T-L\mini{T})}
+    \BinaryInfC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1 < e_2} : \mathtt{bool}$}
+    \DisplayProof
+\end{center}
+
+\vspace{-5pt}
+
+\begin{center}
+    \AxiomC{$\boldsymbol{\Gamma}, \boldsymbol{x} : \boldsymbol{\tau_1} \vdash \boldsymbol{e} : \boldsymbol{\tau_2}$}
+    \RightLabel{(T-F\mini{UN})}
+    \UnaryInfC{$\boldsymbol{\Gamma} \vdash \mathtt{fun} ~ \boldsymbol{x} \to \boldsymbol{e} : \boldsymbol{\tau_1} \to \boldsymbol{\tau_2}$}
+    \DisplayProof
+    \hspace{12pt}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1} : \boldsymbol{\tau_1} \to \boldsymbol{\tau_2}$}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_2} : \boldsymbol{\tau_1}$}
+    \RightLabel{(T-A\mini{PP})}
+    \BinaryInfC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1 ~ e_2} : \boldsymbol{\tau_2}$}
+    \DisplayProof
+\end{center}
+
+\vspace{-5pt}
+
+\begin{center}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1} : \boldsymbol{\tau_1}$}
+    \AxiomC{$\boldsymbol{\Gamma}, \boldsymbol{x} : \boldsymbol{\tau_1} \vdash \boldsymbol{e_2} : \boldsymbol{\tau_2}$}
+    \RightLabel{(T-L\mini{ET})}
+    \BinaryInfC{$\boldsymbol{\Gamma} \vdash \mathtt{let} ~ \boldsymbol{x = e_1} ~ \mathtt{in} ~ \boldsymbol{e_2} : \boldsymbol{\tau_2}$}
+    \DisplayProof
+    \hspace{12pt}
+    \AxiomC{$\boldsymbol{\Gamma}, \boldsymbol{x} : \boldsymbol{\tau_1} \to \boldsymbol{\tau_2}, \boldsymbol{y} : \boldsymbol{\tau_1} \vdash \boldsymbol{e_1} : \boldsymbol{\tau_2}$}
+    \AxiomC{$\boldsymbol{\Gamma}, \boldsymbol{x} : \boldsymbol{\tau_1} \to \boldsymbol{\tau_2} \vdash \boldsymbol{e_2} : \boldsymbol{\tau}$}
+    \RightLabel{(T-L\mini{ET}R\mini{EC})}
+    \BinaryInfC{$\boldsymbol{\Gamma} \vdash \mathtt{let ~ rec} ~ \boldsymbol{x} = \mathtt{fun} ~ \boldsymbol{y} \to \boldsymbol{e_1} ~ \mathtt{in} ~ \boldsymbol{e_2} : \boldsymbol{\tau}$}
+    \DisplayProof
+\end{center}
+
+\vspace{-5pt}
+
+\begin{center}
+    \AxiomC{${}$}
+    \RightLabel{(T-N\mini{IL})}
+    \UnaryInfC{$\boldsymbol{\Gamma} \vdash \boldsymbol{[]} : \boldsymbol{\tau} ~ \mathtt{list}$}
+    \DisplayProof
+    \hspace{12pt}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1} : \boldsymbol{\tau}$}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_2} : \boldsymbol{\tau} ~ \mathtt{list}$}
+    \RightLabel{(T-C\mini{ONS})}
+    \BinaryInfC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1} :: \boldsymbol{e_2} : \boldsymbol{\tau} ~ \mathtt{list}$}
+    \DisplayProof
+\end{center}
+
+\vspace{-5pt}
+
+\begin{prooftree}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_1} : \boldsymbol{\tau}' ~ \mathtt{list}$}
+    \AxiomC{$\boldsymbol{\Gamma} \vdash \boldsymbol{e_2} : \boldsymbol{\tau}$}
+    \AxiomC{$\boldsymbol{\Gamma}, \boldsymbol{x} : \boldsymbol{\tau}', \boldsymbol{y} : \boldsymbol{\tau}' ~ \mathtt{list} \vdash \boldsymbol{e_3} : \boldsymbol{\tau}$}\RightLabel{(T-M\mini{ATCH})}
+    \TrinaryInfC{$\boldsymbol{\Gamma} \vdash \mathtt{match} ~ \boldsymbol{e_1} ~ \mathtt{with} ~ \boldsymbol{[]} \to \boldsymbol{e_2} ~ \boldsymbol{|} ~ \boldsymbol{x} :: \boldsymbol{y} \to \boldsymbol{e_3} : \boldsymbol{\tau}$}
+\end{prooftree}
 
 \end{document}
 
