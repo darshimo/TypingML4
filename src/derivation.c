@@ -388,7 +388,7 @@ void T_Fun(Cncl *cncl_ob, int d)
     Env *gamma = cncl_ob->env_;
     Var *x = cncl_ob->exp_->u.fun_->x;
     Exp *e = cncl_ob->exp_->u.fun_->exp_;
-    Box *tau1, *tau2;
+    Box *tau1 = NULL, *tau2 = NULL;
 
     Type *tmp = getRootBox(cncl_ob->box_)->u.type_;
     if (tmp->type_type == TBD)
@@ -652,7 +652,7 @@ void T_Cons(Cncl *cncl_ob, int d)
     Env *gamma = cncl_ob->env_;
     Exp *e1 = cncl_ob->exp_->u.cons_->exp1_;
     Exp *e2 = cncl_ob->exp_->u.cons_->exp2_;
-    Box *tau, *taulist;
+    Box *tau = NULL, *taulist;
 
     taulist = getRootBox(cncl_ob->box_);
     Type *tmp = taulist->u.type_;
