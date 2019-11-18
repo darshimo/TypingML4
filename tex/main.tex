@@ -1,0 +1,37 @@
+\documentclass{article}
+
+
+
+
+\usepackage{bussproofs}
+\usepackage{ascmac,amsmath,amssymb,amsbsy}
+
+
+
+
+\begin{document}
+
+\begin{alignat*}
+    \boldsymbol{i} & \in \mathbf{Int} & &\\
+    \boldsymbol{b} & \in \mathbf{Bool} & &\\
+    \boldsymbol{x,y} & \in \mathbf{Var} & &\\
+    \boldsymbol{op} & \in \mathbf{Prim} & ~ ::= & ~~ \boldsymbol{+} \mid \boldsymbol{-} \mid \boldsymbol{*} \mid \boldsymbol{<}\\
+    \boldsymbol{\tau} & \in \mathbf{Types} & ~ ::= & ~~ \mathtt{bool} \mid \mathtt{int} \mid \boldsymbol{\tau} \to \boldsymbol{\tau} \mid \boldsymbol{\tau} ~ \mathtt{list}\\
+    \boldsymbol{\Gamma} & \in \mathbf{Env} & ~ ::= & ~~ \bullet \mid \boldsymbol{\Gamma},\boldsymbol{x}:\boldsymbol{\tau}\\
+    \boldsymbol{e} & \in \mathbf{Exp} & ~ ::= & ~~ \boldsymbol{i}
+    \mid \boldsymbol{b}
+    \mid \boldsymbol{x}
+    \mid \boldsymbol{e ~ op ~ e}
+    \mid \mathtt{if} ~ \boldsymbol{e} ~ \mathtt{then} ~ \boldsymbol{e} ~ \mathtt{else} ~ \boldsymbol{e}
+    \mid \mathtt{let} ~ \boldsymbol{x ~ = ~ e} ~ \mathtt{in} ~ \boldsymbol{e}\\
+    &&&\mid \mathtt{fun} ~ \boldsymbol{x} \to \boldsymbol{e}
+    \mid \mathtt{let rec} ~ \boldsymbol{x =} ~ \mathtt{fun} ~ \boldsymbol{y} \to \boldsymbol{e} ~ \mathtt{in} ~ \boldsymbol{e}\\
+    &&&\mid \boldsymbol{[]}
+    \mid \boldsymbol{e} :: \boldsymbol{e}
+    \mid \mathtt{match} ~ \boldsymbol{e} ~ \mathtt{with} ~ \boldsymbol{[]} \to \boldsymbol{e} ~ \boldsymbol{|} ~ \boldsymbol{x} :: \boldsymbol{y} \to \boldsymbol{e}
+\end{alignat*}
+
+
+
+\end{document}
+
