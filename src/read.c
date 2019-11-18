@@ -913,16 +913,25 @@ Cncl *readCncl(char *str)
 
     char *str1, *str2, *str3;
     str1 = str;
-    str2 = strstr(str1, "|-");
-    *str2 = '\0';
-    str2 += 2;
+
+    if ((str2 = strstr(str1, "|-")) != NULL)
+    {
+        *str2 = '\0';
+        str2 += 2;
+        ob->env_ = readEnv(str1);
+    }
+    else
+    {
+        ob->env_ = NULL;
+        str2 = str1;
+    }
     str2 += strspn(str2, " ");
     str3 = strstr(str2, " : ");
     *str3 = '\0';
     str3 += 3;
     str3 += strspn(str3, " ");
 
-    ob->env_ = readEnv(str1);
+    //ob->env_ = readEnv(str1);
     ob->exp_ = readExp(str2);
     ob->box_ = readBox(str3);
 
