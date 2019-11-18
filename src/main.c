@@ -12,29 +12,30 @@
 #endif
 
 #ifdef DBG_STRCT
-void debugCncl(Cncl *,int);
+void debugCncl(Cncl *, int);
 #endif
 
-void error(char*);
-Cncl* readCncl(char*);
-void derivation(Cncl*, int);
+void error(char *);
+Cncl *readCncl(char *);
+void derivation(Cncl *, int);
 void writeCncl(Cncl *, int);
 //void freeCncl(Cncl *);
 void replaceAll(Cncl *);
 
+int main(int argc, char *argv[])
+{
+    if (argc != 2)
+        error("arg is not correct.\n");
 
-int main(int argc, char *argv[]){
-    if(argc!=2)error("arg is not correct.\n");
-
-    char *str = (char *)malloc(sizeof(char)*500);
+    char *str = (char *)malloc(sizeof(char) * 500);
     char *filename = argv[1];
     FILE *fp;
-    if((fp = fopen(filename,"r"))==NULL){
+    if ((fp = fopen(filename, "r")) == NULL)
+    {
         printf("fopen error.");
         exit(EXIT_FAILURE);
     }
-    fgets(str,500,fp);
-
+    fgets(str, 500, fp);
 
 #ifdef DBG_READ
     printf("read start.\n");
@@ -44,36 +45,31 @@ int main(int argc, char *argv[]){
     printf("read complete.\n\n");
 #endif
 
-
 #ifdef DBG_STRCT
     printf("debug start.\n");
-    debugCncl(cncl_ob,0);
+    debugCncl(cncl_ob, 0);
     printf("debug complete.\n\n");
 #endif
-
 
 #ifdef DBG_DRV
     printf("derivation start.\n");
 #endif
-    derivation(cncl_ob,0);
+    derivation(cncl_ob, 0);
 #ifdef DBG_DRV
     printf("derivation complete.\n\n");
 #endif
-
 
 #if !defined(DBG_READ) && !defined(DBG_STRCT) && !defined(DBG_DRV) && !defined(DBG_SB) && !defined(DBG_FREE)
     replaceAll(cncl_ob);
 #endif
 
-
 #ifdef DBG_WRITE
     printf("write start.\n");
 #endif
-    writeCncl(cncl_ob,0);
+    writeCncl(cncl_ob, 0);
 #ifdef DBG_WRITE
     printf("\nwrite complete.\n\n");
 #endif
-
 
     /*
 #ifdef DBG_FREE

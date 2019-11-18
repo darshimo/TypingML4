@@ -39,8 +39,8 @@ void tree(int);
 
 void derivation(Cncl *, int);
 
-
-void T_Int(Cncl *cncl_ob, int d){
+void T_Int(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-Int: ");
@@ -57,10 +57,13 @@ void T_Int(Cncl *cncl_ob, int d){
     cncl_ob->asmp_ = NULL;
 
     Type *tmp = getRootBox(cncl_ob->box_)->u.type_;
-    if(tmp->type_type==TBD){
+    if (tmp->type_type == TBD)
+    {
         free(tmp->u.tbd_);
         tmp->type_type = INTT;
-    }else if(tmp->type_type!=INTT){
+    }
+    else if (tmp->type_type != INTT)
+    {
         error("error1");
     }
 
@@ -78,7 +81,8 @@ void T_Int(Cncl *cncl_ob, int d){
     return;
 }
 
-void T_Bool(Cncl *cncl_ob, int d){
+void T_Bool(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-Bool: ");
@@ -95,10 +99,13 @@ void T_Bool(Cncl *cncl_ob, int d){
     cncl_ob->asmp_ = NULL;
 
     Type *tmp = getRootBox(cncl_ob->box_)->u.type_;
-    if(tmp->type_type==TBD){
+    if (tmp->type_type == TBD)
+    {
         free(tmp->u.tbd_);
         tmp->type_type = BOOLT;
-    }else if(tmp->type_type!=BOOLT){
+    }
+    else if (tmp->type_type != BOOLT)
+    {
         error("error2");
     }
 
@@ -116,8 +123,8 @@ void T_Bool(Cncl *cncl_ob, int d){
     return;
 }
 
-
-void T_Var(Cncl *cncl_ob, int d){
+void T_Var(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-Var: ");
@@ -137,8 +144,8 @@ void T_Var(Cncl *cncl_ob, int d){
     cncl_ob->asmp_ = NULL;
 
     Box *box_ob1 = getRootBox(cncl_ob->box_);
-    Box *box_ob2 = getRootBox(getEnvBox(gamma,x));
-    integrateBox(box_ob1,box_ob2);
+    Box *box_ob2 = getRootBox(getEnvBox(gamma, x));
+    integrateBox(box_ob1, box_ob2);
 
 #ifdef DBG_DRV
     tree(d);
@@ -154,7 +161,8 @@ void T_Var(Cncl *cncl_ob, int d){
     return;
 }
 
-void T_Op(Cncl *cncl_ob, int d){
+void T_Op(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-Op: ");
@@ -188,28 +196,44 @@ void T_Op(Cncl *cncl_ob, int d){
     asmp_ob->next->cncl_->box_->u.type_->type_type = INTT;
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
-    derivation(asmp_ob->cncl_,d+1);
-    derivation(asmp_ob->next->cncl_,d+1);
+    derivation(asmp_ob->cncl_, d + 1);
+    derivation(asmp_ob->next->cncl_, d + 1);
 
     Type *type_ob = getRootBox(cncl_ob->box_)->u.type_;
-    if(cncl_ob->exp_->u.op_->op_type==LT){
+    if (cncl_ob->exp_->u.op_->op_type == LT)
+    {
         cncl_ob->rule_type = T_LT;
-        if(type_ob->type_type==TBD){
+        if (type_ob->type_type == TBD)
+        {
             type_ob->type_type = BOOLT;
-        }else{
-            if(type_ob->type_type!=BOOLT)error("error4");
         }
-    }else{
-        if(type_ob->type_type==TBD){
+        else
+        {
+            if (type_ob->type_type != BOOLT)
+                error("error4");
+        }
+    }
+    else
+    {
+        if (type_ob->type_type == TBD)
+        {
             type_ob->type_type = INTT;
-        }else{
-            if(type_ob->type_type!=INTT)error("error5");
         }
-        if(cncl_ob->exp_->u.op_->op_type==PLUS){
+        else
+        {
+            if (type_ob->type_type != INTT)
+                error("error5");
+        }
+        if (cncl_ob->exp_->u.op_->op_type == PLUS)
+        {
             cncl_ob->rule_type = T_PLUS;
-        }else if(cncl_ob->exp_->u.op_->op_type==MINUS){
+        }
+        else if (cncl_ob->exp_->u.op_->op_type == MINUS)
+        {
             cncl_ob->rule_type = T_MINUS;
-        }else{
+        }
+        else
+        {
             cncl_ob->rule_type = T_TIMES;
         }
     }
@@ -228,7 +252,8 @@ void T_Op(Cncl *cncl_ob, int d){
     return;
 }
 
-void T_If(Cncl *cncl_ob, int d){
+void T_If(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-If: ");
@@ -266,9 +291,9 @@ void T_If(Cncl *cncl_ob, int d){
     asmp_ob->next->next->cncl_->env_ = gamma;
     asmp_ob->next->next->cncl_->exp_ = e3;
     asmp_ob->next->next->cncl_->box_ = tau;
-    derivation(asmp_ob->cncl_,d+1);
-    derivation(asmp_ob->next->cncl_,d+1);
-    derivation(asmp_ob->next->next->cncl_,d+1);
+    derivation(asmp_ob->cncl_, d + 1);
+    derivation(asmp_ob->next->cncl_, d + 1);
+    derivation(asmp_ob->next->next->cncl_, d + 1);
     asmp_ob->next->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -286,7 +311,8 @@ void T_If(Cncl *cncl_ob, int d){
     return;
 }
 
-void T_Let(Cncl *cncl_ob, int d){
+void T_Let(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-Let: ");
@@ -325,8 +351,8 @@ void T_Let(Cncl *cncl_ob, int d){
     asmp_ob->next->cncl_->env_->box_ = tau1;
     asmp_ob->next->cncl_->exp_ = e2;
     asmp_ob->next->cncl_->box_ = tau2;
-    derivation(asmp_ob->cncl_,d+1);
-    derivation(asmp_ob->next->cncl_,d+1);
+    derivation(asmp_ob->cncl_, d + 1);
+    derivation(asmp_ob->next->cncl_, d + 1);
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -344,7 +370,8 @@ void T_Let(Cncl *cncl_ob, int d){
     return;
 }
 
-void T_Fun(Cncl *cncl_ob, int d){
+void T_Fun(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-Fun: ");
@@ -364,7 +391,8 @@ void T_Fun(Cncl *cncl_ob, int d){
     Box *tau1, *tau2;
 
     Type *tmp = getRootBox(cncl_ob->box_)->u.type_;
-    if(tmp->type_type==TBD){
+    if (tmp->type_type == TBD)
+    {
         tau1 = (Box *)malloc(sizeof(Box));
         tau1->box_type = ROOT;
         tau1->u.type_ = (Type *)malloc(sizeof(Type));
@@ -381,10 +409,14 @@ void T_Fun(Cncl *cncl_ob, int d){
         tmp->u.funt_ = (Funt *)malloc(sizeof(Funt));
         tmp->u.funt_->box1_ = tau1;
         tmp->u.funt_->box2_ = tau2;
-    }else if(tmp->type_type==FUNT){
+    }
+    else if (tmp->type_type == FUNT)
+    {
         tau1 = getRootBox(tmp->u.funt_->box1_);
         tau2 = getRootBox(tmp->u.funt_->box2_);
-    }else{
+    }
+    else
+    {
         error("error8");
     }
 
@@ -396,7 +428,7 @@ void T_Fun(Cncl *cncl_ob, int d){
     asmp_ob->cncl_->env_->box_ = tau1;
     asmp_ob->cncl_->exp_ = e;
     asmp_ob->cncl_->box_ = tau2;
-    derivation(asmp_ob->cncl_,d+1);
+    derivation(asmp_ob->cncl_, d + 1);
     asmp_ob->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -414,7 +446,8 @@ void T_Fun(Cncl *cncl_ob, int d){
     return;
 }
 
-void T_App(Cncl *cncl_ob, int d){
+void T_App(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-App: ");
@@ -455,8 +488,8 @@ void T_App(Cncl *cncl_ob, int d){
     asmp_ob->next->cncl_->env_ = gamma;
     asmp_ob->next->cncl_->exp_ = e2;
     asmp_ob->next->cncl_->box_ = tau1;
-    derivation(asmp_ob->cncl_,d+1);
-    derivation(asmp_ob->next->cncl_,d+1);
+    derivation(asmp_ob->cncl_, d + 1);
+    derivation(asmp_ob->next->cncl_, d + 1);
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -474,7 +507,8 @@ void T_App(Cncl *cncl_ob, int d){
     return;
 }
 
-void T_LetRec(Cncl *cncl_ob, int d){
+void T_LetRec(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-LetRec: ");
@@ -525,7 +559,7 @@ void T_LetRec(Cncl *cncl_ob, int d){
     asmp_ob->cncl_->env_->box_ = tau1;
     asmp_ob->cncl_->exp_ = e1;
     asmp_ob->cncl_->box_ = tau2;
-//reverse start
+    //reverse start
     asmp_ob->next = (Asmp *)malloc(sizeof(Asmp));
     asmp_ob->next->cncl_ = (Cncl *)malloc(sizeof(Cncl));
     asmp_ob->next->cncl_->env_ = (Env *)malloc(sizeof(Env));
@@ -534,8 +568,8 @@ void T_LetRec(Cncl *cncl_ob, int d){
     asmp_ob->next->cncl_->env_->box_ = tau1_tau2;
     asmp_ob->next->cncl_->exp_ = e2;
     asmp_ob->next->cncl_->box_ = tau;
-    derivation(asmp_ob->cncl_,d+1);
-    derivation(asmp_ob->next->cncl_,d+1);
+    derivation(asmp_ob->cncl_, d + 1);
+    derivation(asmp_ob->next->cncl_, d + 1);
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -553,9 +587,8 @@ void T_LetRec(Cncl *cncl_ob, int d){
     return;
 }
 
-
-
-void T_Nil(Cncl *cncl_ob, int d){
+void T_Nil(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-Nil: ");
@@ -570,7 +603,8 @@ void T_Nil(Cncl *cncl_ob, int d){
     cncl_ob->rule_type = T_NIL;
     cncl_ob->asmp_ = NULL;
     Box *tmp = getRootBox(cncl_ob->box_);
-    if(tmp->u.type_->type_type==TBD){
+    if (tmp->u.type_->type_type == TBD)
+    {
         tmp->u.type_->type_type = LISTT;
         tmp->u.type_->u.listt_ = (Listt *)malloc(sizeof(Listt));
         tmp->u.type_->u.listt_->box_ = (Box *)malloc(sizeof(Box));
@@ -580,7 +614,9 @@ void T_Nil(Cncl *cncl_ob, int d){
         tmp->u.type_->u.listt_->box_->u.type_->u.tbd_ = (Tbd *)malloc(sizeof(Tbd));
         tmp->u.type_->u.listt_->box_->u.type_->u.tbd_->n = kdkd();
         tmp->u.type_->u.listt_->box_->u.type_->type_type = TBD;
-    }else if(getRootBox(cncl_ob->box_)->u.type_->type_type!=LISTT){
+    }
+    else if (getRootBox(cncl_ob->box_)->u.type_->type_type != LISTT)
+    {
         error("Nil is not list.");
     }
 
@@ -598,7 +634,8 @@ void T_Nil(Cncl *cncl_ob, int d){
     return;
 }
 
-void T_Cons(Cncl *cncl_ob, int d){
+void T_Cons(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-Cons: ");
@@ -619,7 +656,8 @@ void T_Cons(Cncl *cncl_ob, int d){
 
     taulist = getRootBox(cncl_ob->box_);
     Type *tmp = taulist->u.type_;
-    if(tmp->type_type==TBD){
+    if (tmp->type_type == TBD)
+    {
         tau = (Box *)malloc(sizeof(Box));
         tau->box_type = ROOT;
         tau->u.type_ = (Type *)malloc(sizeof(Type));
@@ -629,9 +667,13 @@ void T_Cons(Cncl *cncl_ob, int d){
         tmp->type_type = LISTT;
         tmp->u.listt_ = (Listt *)malloc(sizeof(Listt));
         tmp->u.listt_->box_ = tau;
-    }else if(tmp->type_type==LISTT){
+    }
+    else if (tmp->type_type == LISTT)
+    {
         tau = tmp->u.listt_->box_;
-    }else{
+    }
+    else
+    {
         error("Cons is not list.");
     }
 
@@ -645,8 +687,8 @@ void T_Cons(Cncl *cncl_ob, int d){
     asmp_ob->next->cncl_->env_ = gamma;
     asmp_ob->next->cncl_->exp_ = e2;
     asmp_ob->next->cncl_->box_ = taulist;
-    derivation(asmp_ob->cncl_,d+1);
-    derivation(asmp_ob->next->cncl_,d+1);
+    derivation(asmp_ob->cncl_, d + 1);
+    derivation(asmp_ob->next->cncl_, d + 1);
     asmp_ob->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -664,7 +706,8 @@ void T_Cons(Cncl *cncl_ob, int d){
     return;
 }
 
-void T_Match(Cncl *cncl_ob, int d){
+void T_Match(Cncl *cncl_ob, int d)
+{
 #ifdef DBG_DRV
     tree(d);
     printf("T-Match: ");
@@ -723,9 +766,9 @@ void T_Match(Cncl *cncl_ob, int d){
     asmp_ob->next->next->cncl_->env_->box_ = tau1list;
     asmp_ob->next->next->cncl_->exp_ = e3;
     asmp_ob->next->next->cncl_->box_ = tau;
-    derivation(asmp_ob->cncl_,d+1);
-    derivation(asmp_ob->next->cncl_,d+1);
-    derivation(asmp_ob->next->next->cncl_,d+1);
+    derivation(asmp_ob->cncl_, d + 1);
+    derivation(asmp_ob->next->cncl_, d + 1);
+    derivation(asmp_ob->next->next->cncl_, d + 1);
     asmp_ob->next->next->next = NULL;
     cncl_ob->asmp_ = asmp_ob;
 
@@ -743,19 +786,32 @@ void T_Match(Cncl *cncl_ob, int d){
     return;
 }
 
-void derivation(Cncl *cncl_ob, int d){
+void derivation(Cncl *cncl_ob, int d)
+{
     ExpType tmp = cncl_ob->exp_->exp_type;
-    if(tmp == INT) T_Int(cncl_ob,d);
-    else if(tmp == BOOL) T_Bool(cncl_ob,d);
-    else if(tmp == VAR) T_Var(cncl_ob,d);
-    else if(tmp == OP) T_Op(cncl_ob, d);
-    else if(tmp == IF) T_If(cncl_ob, d);
-    else if(tmp == LET) T_Let(cncl_ob,d);
-    else if(tmp == FUN) T_Fun(cncl_ob,d);
-    else if(tmp == APP) T_App(cncl_ob,d);
-    else if(tmp == LETREC) T_LetRec(cncl_ob,d);
-    else if(tmp == NIL) T_Nil(cncl_ob,d);
-    else if(tmp == CONS) T_Cons(cncl_ob,d);
-    else T_Match(cncl_ob,d);
+    if (tmp == INT)
+        T_Int(cncl_ob, d);
+    else if (tmp == BOOL)
+        T_Bool(cncl_ob, d);
+    else if (tmp == VAR)
+        T_Var(cncl_ob, d);
+    else if (tmp == OP)
+        T_Op(cncl_ob, d);
+    else if (tmp == IF)
+        T_If(cncl_ob, d);
+    else if (tmp == LET)
+        T_Let(cncl_ob, d);
+    else if (tmp == FUN)
+        T_Fun(cncl_ob, d);
+    else if (tmp == APP)
+        T_App(cncl_ob, d);
+    else if (tmp == LETREC)
+        T_LetRec(cncl_ob, d);
+    else if (tmp == NIL)
+        T_Nil(cncl_ob, d);
+    else if (tmp == CONS)
+        T_Cons(cncl_ob, d);
+    else
+        T_Match(cncl_ob, d);
     return;
 }

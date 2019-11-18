@@ -1,4 +1,5 @@
-typedef enum{//rule type
+typedef enum
+{ //rule type
     T_INT,
     T_BOOL,
     T_IF,
@@ -14,22 +15,25 @@ typedef enum{//rule type
     T_NIL,
     T_CONS,
     T_MATCH
-}RuleType;
+} RuleType;
 
-typedef enum{ //type type
+typedef enum
+{ //type type
     TBD,
     INTT,
     BOOLT,
     FUNT,
     LISTT
-}TypeType;
+} TypeType;
 
-typedef enum{
+typedef enum
+{
     ROOT,
     NODE
-}BoxType;
+} BoxType;
 
-typedef enum{ // exp type
+typedef enum
+{ // exp type
     INT,
     BOOL,
     VAR,
@@ -42,15 +46,15 @@ typedef enum{ // exp type
     NIL,
     CONS,
     MATCH
-}ExpType;
+} ExpType;
 
-typedef enum{ // infr type
+typedef enum
+{ // infr type
     PLUS,
     MINUS,
     TIMES,
     LT
-}OpType;
-
+} OpType;
 
 struct Funt_;
 struct Listt_;
@@ -78,107 +82,123 @@ struct Asmp_;
 
 struct Cncl_;
 
-
-typedef struct Tbd_{
+typedef struct Tbd_
+{
     int n;
-}Tbd;
+} Tbd;
 
-typedef struct Funt_{
+typedef struct Funt_
+{
     struct Box_ *box1_;
     struct Box_ *box2_;
-}Funt;
+} Funt;
 
-typedef struct Listt_{
+typedef struct Listt_
+{
     struct Box_ *box_;
-}Listt;
+} Listt;
 
-typedef struct Env_{
+typedef struct Env_
+{
     struct Var_ *var_;
     struct Box_ *box_;
     struct Env_ *prev;
-}Env;
+} Env;
 
-typedef struct Box_{
+typedef struct Box_
+{
     BoxType box_type;
-    union{
+    union {
         struct Type_ *type_;
         struct Box_ *prev;
-    }u;
-}Box;
+    } u;
+} Box;
 
-typedef struct Type_{
+typedef struct Type_
+{
     TypeType type_type;
-    union{
+    union {
         struct Tbd_ *tbd_;
         struct Funt_ *funt_;
         struct Listt_ *listt_;
-    }u;
-}Type;
+    } u;
+} Type;
 
-typedef struct Int_{
+typedef struct Int_
+{
     int i;
-}Int;
+} Int;
 
-
-typedef struct Bool_{
+typedef struct Bool_
+{
     int b;
-}Bool;
+} Bool;
 
-typedef struct Var_{
+typedef struct Var_
+{
     char *var_name;
-}Var;
+} Var;
 
-typedef struct Op_{
+typedef struct Op_
+{
     OpType op_type;
     struct Exp_ *exp1_;
     struct Exp_ *exp2_;
-}Op;
+} Op;
 
-typedef struct If_{
+typedef struct If_
+{
     struct Exp_ *exp1_;
     struct Exp_ *exp2_;
     struct Exp_ *exp3_;
-}If;
+} If;
 
-typedef struct Let_{
+typedef struct Let_
+{
     struct Var_ *x;
     struct Exp_ *exp1_;
     struct Exp_ *exp2_;
-}Let;
+} Let;
 
-typedef struct Fun_{
+typedef struct Fun_
+{
     struct Var_ *x;
     struct Exp_ *exp_;
-}Fun;
+} Fun;
 
-typedef struct App_{
+typedef struct App_
+{
     struct Exp_ *exp1_;
     struct Exp_ *exp2_;
-}App;
+} App;
 
-typedef struct LetRec_{
+typedef struct LetRec_
+{
     struct Var_ *x;
     struct Var_ *y;
     struct Exp_ *exp1_;
     struct Exp_ *exp2_;
-}LetRec;
+} LetRec;
 
-typedef struct Cons_{
+typedef struct Cons_
+{
     struct Exp_ *exp1_;
     struct Exp_ *exp2_;
-}Cons;
+} Cons;
 
-typedef struct Match_{
+typedef struct Match_
+{
     struct Exp_ *exp1_;
     struct Exp_ *exp2_;
     struct Var_ *x;
     struct Var_ *y;
     struct Exp_ *exp3_;
-}Match;
+} Match;
 
-typedef struct Exp_{
+typedef struct Exp_
+{
     ExpType exp_type;
-    union{
+    union {
         struct Int_ *int_;
         struct Bool_ *bool_;
         struct Var_ *var_;
@@ -190,18 +210,20 @@ typedef struct Exp_{
         struct LetRec_ *letrec_;
         struct Cons_ *cons_;
         struct Match_ *match_;
-    }u;
-}Exp;
+    } u;
+} Exp;
 
-typedef struct Asmp_{
+typedef struct Asmp_
+{
     struct Cncl_ *cncl_;
     struct Asmp_ *next;
-}Asmp;
+} Asmp;
 
-typedef struct Cncl_{
+typedef struct Cncl_
+{
     RuleType rule_type;
     struct Asmp_ *asmp_;
     struct Env_ *env_;
     struct Exp_ *exp_;
     struct Box_ *box_;
-}Cncl;
+} Cncl;

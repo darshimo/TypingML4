@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void error(char *msg){
+void error(char *msg)
+{
     perror(msg);
     exit(1);
-    return ;
+    return;
 }
