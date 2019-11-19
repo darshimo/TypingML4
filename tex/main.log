@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.14159265-p3.7.1-u1.22-161114-2.6 (utf8.uptex) (TeX Live 2017) (preloaded format=uplatex 2017.9.14)  19 NOV 2019 02:30
+This is e-upTeX, Version 3.14159265-p3.7.1-u1.22-161114-2.6 (utf8.uptex) (TeX Live 2017) (preloaded format=uplatex 2017.9.14)  19 NOV 2019 22:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -240,246 +240,27 @@ LaTeX Font Info:    ... okay on input line 9.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \protect 
-l.12     \boldsymbol
-                    {i} & \in \mathbf{Int} & &\\
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 12.
+LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 11.
+LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 11.
+LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JT2/gt/m/n' tried instead on input line 11.
+LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 11.
+LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <14.4> not available
+(Font)              Font shape `JY2/gt/m/n' tried instead on input line 11.
+LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
+(Font)              scaled to size 13.85594pt on input line 11.
+LaTeX Font Info:    Try loading font information for U+msa on input line 15.
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 12.
+LaTeX Font Info:    Try loading font information for U+msb on input line 15.
 
 (/usr/local/texlive/2017basic/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-! Missing $ inserted.
-<inserted text> 
-                $
-l.12     \boldsymbol
-                    {i} & \in \mathbf{Int} & &\\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Extra }, or forgotten $.
-\math@atom #1#2->\binrel@ {#1}\binrel@@ {#2}
-                                            
-l.12     \boldsymbol
-                    {i} & \in \mathbf{Int} & &\\
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.12     \boldsymbol
-                    {i} & \in \mathbf{Int} & &\\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-! Missing } inserted.
-<inserted text> 
-                }
-l.12     \boldsymbol
-                    {i} & \in \mathbf{Int} & &\\
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-
-! Package amsmath Error: Extra & on this line.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.29 \end{alignat*}
-                   
-\An extra & here is so disastrous that you should probably exit
- and fix things up. 
-
-
-! Package amsmath Error: Extra & on this line.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.29 \end{alignat*}
-                   
-\An extra & here is so disastrous that you should probably exit
- and fix things up. 
-
-
-! Package amsmath Error: Extra & on this line.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.29 \end{alignat*}
-                   
-\An extra & here is so disastrous that you should probably exit
- and fix things up. 
-
-
-! Package amsmath Error: Extra & on this line.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.29 \end{alignat*}
-                   
-\An extra & here is so disastrous that you should probably exit
- and fix things up. 
-
-
-! Package amsmath Error: Extra & on this line.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.29 \end{alignat*}
-                   
-\An extra & here is so disastrous that you should probably exit
- and fix things up. 
-
-
-! Package amsmath Error: Extra & on this line.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.29 \end{alignat*}
-                   
-\An extra & here is so disastrous that you should probably exit
- and fix things up. 
-
-
-! Package amsmath Error: Extra & on this line.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.29 \end{alignat*}
-                   
-\An extra & here is so disastrous that you should probably exit
- and fix things up. 
-
-
-! Package amsmath Error: Extra & on this line.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.29 \end{alignat*}
-                   
-\An extra & here is so disastrous that you should probably exit
- and fix things up. 
-
-
-! Package amsmath Error: Extra & on this line.
-
-See the amsmath package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.29 \end{alignat*}
-                   
-\An extra & here is so disastrous that you should probably exit
- and fix things up. 
-
-! Misplaced \omit.
-\math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
-                                                  \kern -\alignsep@ \iftag@ ...
-l.29 \end{alignat*}
-                   
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \omit.
-\math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
-                                                  \kern -\alignsep@ \iftag@ ...
-l.29 \end{alignat*}
-                   
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \omit.
-\math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
-                                                  \kern -\alignsep@ \iftag@ ...
-l.29 \end{alignat*}
-                   
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \omit.
-\math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
-                                                  \kern -\alignsep@ \iftag@ ...
-l.29 \end{alignat*}
-                   
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \omit.
-\math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
-                                                  \kern -\alignsep@ \iftag@ ...
-l.29 \end{alignat*}
-                   
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \omit.
-\math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
-                                                  \kern -\alignsep@ \iftag@ ...
-l.29 \end{alignat*}
-                   
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \omit.
-\math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
-                                                  \kern -\alignsep@ \iftag@ ...
-l.29 \end{alignat*}
-                   
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \omit.
-\math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
-                                                  \kern -\alignsep@ \iftag@ ...
-l.29 \end{alignat*}
-                   
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \omit.
-\math@cr@@@ ...@ \@ne \add@amps \maxfields@ \omit 
-                                                  \kern -\alignsep@ \iftag@ ...
-l.29 \end{alignat*}
-                   
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-[1
+) [1
 
 ]
 \myBox1=\box57
@@ -494,14 +275,15 @@ an alignment. Proceed, and I'll ignore this case.
 \myScoreStart3=\dimen164
 \myCenter3=\dimen165
 \myScoreEnd3=\dimen166
- [2] (./main.aux) ) 
-Here is how much of TeX's memory you used:
- 2134 strings out of 494867
- 26689 string characters out of 6175422
- 106364 words of memory out of 5000000
- 5641 multiletter control sequences out of 15000+600000
- 11031 words of font info for 52 fonts, out of 8000000 for 9000
- 107 hyphenation exceptions out of 8191
- 27i,12n,26p,255b,162s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (2 pages, 8804 bytes).
+[2] (./main.aux) ) 
+Here is how much of TeX's memory you used:
+ 2144 strings out of 494867
+ 26825 string characters out of 6175422
+ 106364 words of memory out of 5000000
+ 5649 multiletter control sequences out of 15000+600000
+ 12178 words of font info for 58 fonts, out of 8000000 for 9000
+ 107 hyphenation exceptions out of 8191
+ 27i,12n,26p,255b,186s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on main.dvi (2 pages, 8900 bytes).
