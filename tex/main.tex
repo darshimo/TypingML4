@@ -26,7 +26,8 @@
     \mid \mathtt{if} ~ \boldsymbol{e} ~ \mathtt{then} ~ \boldsymbol{e} ~ \mathtt{else} ~ \boldsymbol{e}
     \mid \mathtt{let} ~ \boldsymbol{x = e} ~ \mathtt{in} ~ \boldsymbol{e}\\
     &&&\mid \mathtt{fun} ~ \boldsymbol{x} \to \boldsymbol{e}
-    \mid \boldsymbol{e ~ e} \mid \mathtt{let ~ rec} ~ \boldsymbol{x} = \mathtt{fun} ~ \boldsymbol{y} \to \boldsymbol{e} ~ \mathtt{in} ~ \boldsymbol{e}\\
+    \mid \boldsymbol{e ~ e}
+    \mid \mathtt{let ~ rec} ~ \boldsymbol{x} = \mathtt{fun} ~ \boldsymbol{y} \to \boldsymbol{e} ~ \mathtt{in} ~ \boldsymbol{e}\\
     &&&\mid \boldsymbol{[]}
     \mid \boldsymbol{e} :: \boldsymbol{e}
     \mid \mathtt{match} ~ \boldsymbol{e} ~ \mathtt{with} ~ \boldsymbol{[]} \to \boldsymbol{e} ~ \boldsymbol{|} ~ \boldsymbol{x} :: \boldsymbol{y} \to \boldsymbol{e}
